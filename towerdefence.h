@@ -2,6 +2,8 @@
 #define TOWERDEFENCE_H
 
 #include <QMainWindow>
+#include "mapgrid.h"
+
 
 namespace Ui {
 class TowerDefence;
@@ -17,6 +19,7 @@ public:
     
 private:
     Ui::TowerDefence *ui;
+
 private slots:
    void paintEvent(QPaintEvent *paint);
 };

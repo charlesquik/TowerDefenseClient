@@ -2,10 +2,10 @@
 #include "ui_towerdefence.h"
 #include <QPainter>
 #include "mapgrid.h"
-#include "scene.h"
 #include <QPaintEvent>
 #include <QApplication>
 #include <QDesktopWidget>
+#include "mapgrid.h"
 
 TowerDefence::TowerDefence(QString carte, int vie, int credit):QMainWindow(),
     ui(new Ui::TowerDefence)
@@ -14,6 +14,15 @@ TowerDefence::TowerDefence(QString carte, int vie, int credit):QMainWindow(),
     //this->showFullScreen();
     QRect ecran=QApplication::desktop()->rect();
     this->setFixedSize(ecran.width(),ecran.height());
+    MapGrid *mavue=new MapGrid(&Gestionnaire,this);
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), mavue, SLOT(animate()));
+    connect(mavue, SIGNAL(updatelabel()), this, SLOT(SetLabel()));
+
+   //  connect(glw, SIGNAL(gameOverL()) , this, SLOT(EndGameL()));
+   // connect(glw, SIGNAL(gameOverW()) , this, SLOT(EndGameW()));
+
+    timer->start(30);
 
    // graphics = new scene(carte,this->joueur1, this);
 }
@@ -28,4 +37,7 @@ void TowerDefence::paintEvent(QPaintEvent *paint)
     painter.setRenderHint(QPainter::Antialiasing);
 
 }
+void TowerDefence::abandonner()
+{
 
+}
