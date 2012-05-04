@@ -2,6 +2,7 @@
 #define NEWPARTIE_H
 
 #include <QWidget>
+#include <QTcpSocket>
 
 namespace Ui {
 class newpartie;
@@ -12,7 +13,7 @@ class newpartie : public QWidget
     Q_OBJECT
     
 public:
-    explicit newpartie(QWidget *parent = 0);
+    explicit newpartie(QTcpSocket socket, QWidget *parent = 0);
     ~newpartie();
     void reset();
     QPalette p;
@@ -23,6 +24,7 @@ public:
     
 private:
     Ui::newpartie *ui;
+    QTcpSocket m_socket;
 protected:
     void mousePressEvent(QMouseEvent *e);
 private slots:
