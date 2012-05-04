@@ -75,7 +75,6 @@ void MainMenu::keyPressEvent(QKeyEvent *event)
 
                 Lobby *lobby=new Lobby();
                 lobby->showFullScreen();
-
                 this->close();
                 }
                 break;

@@ -12,7 +12,7 @@ class TowerDefence : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit TowerDefence(QWidget *parent = 0);
+    explicit TowerDefence(QString carte, int vie, int credit);
     ~TowerDefence();
     
 private:

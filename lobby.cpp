@@ -2,6 +2,7 @@
 #include "ui_lobby.h"
 #include "mainmenu.h"
 #include "towerdefence.h""
+#include "newpartie.h"
 
 
 Lobby::Lobby(QWidget *parent) :
@@ -26,7 +27,7 @@ void Lobby::on_btn_retour_clicked()
 
 void Lobby::on_btn_Creer_clicked()
 {
-    TowerDefence *dmainmenu=new TowerDefence();
+    newpartie *dmainmenu=new newpartie();
     dmainmenu->show();
     this->close();
 }
