@@ -4,19 +4,20 @@
 #include "projectile.h"
 #include "tower.h"
 #include <QList>
+#include <QPixmap>
 
 class gestionnaire
 {
 public:
-    gestionnaire(QRect ecran,QBrush map);
+    gestionnaire(QPixmap map);
+    void paint(QPainter *painter, QPaintEvent *event,long elapsed);
 private:
     int money;
-    int MapX, MapY;
-    QList<Monstre> ListeMonstre;
+   // int MapX, MapY;
+    QList<Monstre*> ListeMonstre;
     QList<Tower*> ListeTower;
     QList<Projectile*> ListeProjectile;
     QBrush background;
-    bool cibleaquise;
 
 };
 

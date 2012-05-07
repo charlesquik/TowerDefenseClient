@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     tower.cpp \
     joueur.cpp \
     newpartie.cpp \
-    gestionnaire.cpp
+    gestionnaire.cpp \
+    controlpannel.cpp
 
 HEADERS  += towerdefence.h \
     mainmenu.h \
@@ -32,7 +33,8 @@ HEADERS  += towerdefence.h \
     tower.h \
     joueur.h \
     newpartie.h \
-    gestionnaire.h
+    gestionnaire.h \
+    controlpannel.h
 
 FORMS    += towerdefence.ui \
     mainmenu.ui \

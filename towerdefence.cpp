@@ -12,15 +12,13 @@ TowerDefence::TowerDefence(QString carte, int vie, int credit):QMainWindow(),
     ui(new Ui::TowerDefence)
 {
     ui->setupUi(this);
-    //this->showFullScreen();
     QRect ecran=QApplication::desktop()->rect();
     this->setFixedSize(ecran.width(),ecran.height());
-    mavue=new MapGrid(ecran,&Gestionnaire(ecran,map),this);
+    gest=new gestionnaire(map);
+    mavue=new MapGrid(ecran,gest,this);
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), mavue, SLOT(animate()));
     connect(mavue, SIGNAL(updatelabel()), this, SLOT(SetLabel()));
-   //  connect(glw, SIGNAL(gameOverL()) , this, SLOT(EndGameL()));
-   // connect(glw, SIGNAL(gameOverW()) , this, SLOT(EndGameW()));
     timer->start(30);
 }
 
@@ -32,7 +30,6 @@ void TowerDefence::paintEvent(QPaintEvent *paint)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
-
 }
 void TowerDefence::abandonner()
 {

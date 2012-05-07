@@ -1,13 +1,13 @@
 #include "gestionnaire.h"
 #include <QtGui>
 #include <QTransform>
+#include <QPixmap>
 
-gestionnaire::gestionnaire(QRect ecran,QBrush map)
+gestionnaire::gestionnaire(QPixmap map)
 {
-    MapX=(ecran.width()-100)/12;
-    MapY=(ecran.height()/12;
-    background=map;
-    cibleaquise=false;
+  //  MapX=(ecran.width()-100)/12;
+   // MapY=(ecran.height()/12;
+    background = QBrush(map);
 }
 void gestionnaire::paint(QPainter *painter, QPaintEvent *event,long elapsed)
 {
@@ -16,8 +16,8 @@ void gestionnaire::paint(QPainter *painter, QPaintEvent *event,long elapsed)
 
     for(int i=0;i<ListeMonstre.size();i++)
     {
-        ListeMonstre.at(i).avancer(elapsed,1);
-        ListeMonstre.at(i).paint(painter);
+        ListeMonstre.at(i)->avancer(elapsed,1);
+        ListeMonstre.at(i)->paint(painter);
 
     }
     for(int i=0;i<ListeProjectile.size();i++)
@@ -30,17 +30,17 @@ void gestionnaire::paint(QPainter *painter, QPaintEvent *event,long elapsed)
         ListeTower.at(i)->paint(painter);
         for(int j=0;j<ListeMonstre.size();j++)
         {
-            if((ListeTower.at(i)->center - ListeMonstre.at(j).monstre)<ListeTower.at(i)->portee)
+            if((ListeTower.at(i)->center - ListeMonstre.at(j)->monstre).length()<ListeTower.at(i)->portee)
             {
                 Projectile *p=ListeTower.at(i)->Shoot(ListeMonstre.at(j),elapsed);
                 if(p!=NULL)
                     ListeProjectile.append(p);
-                ListeTower.at(i)->suivre(ListeMonstre.at(j).monstre);
+                ListeTower.at(i)->suivre(&ListeMonstre.at(j)->monstre);
             }
         }
         if(ListeMonstre.isEmpty()==false)
         {
-           ListeTower.at(i)->suivre(ListeMonstre.first().monstre);
+           ListeTower.at(i)->suivre(&ListeMonstre.first()->monstre);
         }
 
     }
@@ -60,7 +60,7 @@ void gestionnaire::paint(QPainter *painter, QPaintEvent *event,long elapsed)
     }
     for(int i=0;i<ListeMonstre.size();i++)
     {
-        if(ListeMonstre.at(i).vie<0)
+        if(ListeMonstre.at(i)->vie<0)
         {
             money+=10;
             delete ListeMonstre.at(i);

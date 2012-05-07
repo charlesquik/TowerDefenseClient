@@ -5,7 +5,7 @@
 #include "mapgrid.h"
 #include "gestionnaire.h"
 #include <QTimer>
-#include <QBrush>
+#include <QPixmap>
 
 
 namespace Ui {
@@ -23,10 +23,10 @@ public:
     
 private:
     Ui::TowerDefence *ui;
-    gestionnaire Gestionnaire;
+    gestionnaire *gest;
     MapGrid *mavue;
     QTimer *timer;
-    QBrush map;
+    QPixmap map;
 
 private slots:
    void paintEvent(QPaintEvent *paint);

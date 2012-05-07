@@ -21,12 +21,15 @@ public slots:
 protected:
     void paintEvent(QPaintEvent *event);
 signals:
-    void AjoutTour(Tower *newt);
+    void AjoutTour(int newt);
     void updatelabel();
+    void mousepress(int x,int y,bool valide);
 private:
     gestionnaire *gest;
     long elapsed;
     int newtower;
+    int mapx,mapy;
+    int grido[24][12];
 };
 
 #endif // MAPGRID_H

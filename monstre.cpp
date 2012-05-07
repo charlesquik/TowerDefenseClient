@@ -13,7 +13,7 @@ void Monstre::paint ( QPainter * painter)
 {
     painter->setPen(QPen(Qt::NoPen));
     painter->setBrush(carapace);
-    painter->drawEllipse(this->pos.x(), this->pos.y(), taille, taille);
+    painter->drawEllipse(this->monstre.x()-(taille/2), this->monstre.y()-(taille/2), taille, taille);
 }
 void Monstre::avancer(long elapsed,int etape)
 {
@@ -21,13 +21,13 @@ void Monstre::avancer(long elapsed,int etape)
     {
         switch(terraintype)
         {
-        case "droite":
+        case 1:
         break;
-        case "haut":
+        case 2:
         break;
-        case "bas":
+        case 3:
         break;
-        case "gauche":
+        case 4:
            // if(lastterraintype=="haut")
           //      rotation=-90;
         //   else

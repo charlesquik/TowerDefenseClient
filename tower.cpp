@@ -19,8 +19,8 @@ Tower::Tower(int x,int y,float cadence,float portee,int prixbase,float damage,in
     this->canon=canon;
     this->base=base;
     this->lh=lh;
-    this->center(x+lh/2,y+lh/2);
-
+    center.setX((qreal)(x+lh/2));
+    center.setY((qreal)(y+lh/2));
 }
 int Tower::revendre()
 {
@@ -31,7 +31,7 @@ void Tower::suivre(QVector2D *posmonstre)
 
     int angle=acos(QVector2D::dotProduct(*posmonstre,center));
     angle=angle+sqrt(posmonstre->lengthSquared()*center.lengthSquared());
-     rotation=angle;
+    rotation=angle;
 }
 void Tower::paint (QPainter * painter)
 {
@@ -46,8 +46,8 @@ Projectile* Tower::Shoot(Monstre *monstre, long elapsed)
 {
     if (elapsed - derniertire < cadence) return 0;
     QVector2D tcenter(center.x(), center.y());
-    QVector2D target(monstre->pos.x,monstre->pos.y);
-    if (target.isNull() || (this->center - target).length() > this-portee)
+    QVector2D target(monstre->monstre.x(),monstre->monstre.y());
+    if (target.isNull() || (this->center - target).length() > this->portee)
         return 0;
     derniertire = elapsed;
     Projectile*projectile = new Projectile(tcenter, target,tailleprojectile,10,1,damage*level,base,elapsed);

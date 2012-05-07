@@ -14,7 +14,7 @@ public:
     explicit Monstre(QVector2D monstre,float vitesse,float vie,int type,float taille,QColor carapace);
     void paint(QPainter * painter);
     void avancer(long elapsed,int etape);
-    QVector2D monstre;
+   QVector2D monstre;
    float vitesse;
     int vie;
      int type;
@@ -22,7 +22,7 @@ public:
     QColor carapace;
     void hit(float damage);
 private:
-    QString terraintype;
+    int terraintype;
         
 };
 

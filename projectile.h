@@ -21,7 +21,7 @@ public:
     bool cibletoucher;
     float taille,vitesse,degat;
     int type;
-  //  Qcolor couleur;
+    QColor couleur;
 
 signals:
     
