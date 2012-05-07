@@ -18,6 +18,7 @@ private:
     QList<Tower*> ListeTower;
     QList<Projectile*> ListeProjectile;
     QBrush background;
+    Tower *t;
 
 };
 

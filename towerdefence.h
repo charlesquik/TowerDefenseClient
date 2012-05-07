@@ -6,6 +6,7 @@
 #include "gestionnaire.h"
 #include <QTimer>
 #include <QPixmap>
+#include "controlpannel.h"
 
 
 namespace Ui {
@@ -25,11 +26,11 @@ private:
     Ui::TowerDefence *ui;
     gestionnaire *gest;
     MapGrid *mavue;
+    ControlPannel *moncontrole;
     QTimer *timer;
-    QPixmap map;
 
 private slots:
-   void paintEvent(QPaintEvent *paint);
+   //void paintEvent(QPaintEvent *paint);
 };
 
 #endif // TOWERDEFENCE_H

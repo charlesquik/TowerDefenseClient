@@ -13,7 +13,7 @@ newpartie::newpartie(QWidget *parent) :
     ui->frame_2->setAutoFillBackground(true);
     ui->frame_3->setAutoFillBackground(true);
     ui->frame_4->setAutoFillBackground(true);
-    QPixmap map("allo.jpg");
+    QPixmap map("lol.jpg");
 
     map.scaled(ui->frame->width(),ui->frame->height());
 

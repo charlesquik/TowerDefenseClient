@@ -11,23 +11,23 @@
 class Tower
 {
 public:
-    explicit Tower(int x,int y,float cadence,float portee,int prixbase,float damage,int type,float tailleprojectile,QColor canon,QColor base,int lh);
+    Tower(int x,int y,float cadence,float portee,int prixbase,float damage,int type,float tailleprojectile,QColor canon,QColor base,int lh);
 
-    int x;
-    int y;
-    float cadence;
-    float portee;
-    int prixbase;
-    float damage;
-    int type;
-    float   tailleprojectile;
-    QColor    canon;
-    QColor    base;
-    int   lh;
-    QVector2D center;
-    int rotation;
-    long derniertire;
-    int level;
+    int m_x;
+    int m_y;
+    float m_cadence;
+    float m_portee;
+    int m_prixbase;
+    float m_damage;
+    int m_type;
+    float   m_tailleprojectile;
+    QColor    m_canon;
+    QColor    m_base;
+    int   m_lh;
+    QVector2D m_center;
+    int m_rotation;
+    long m_derniertire;
+    int m_level;
 
   //  QVector2D GetInterSect(  QVector2D source,
     //                         QVector2D destination,
@@ -36,11 +36,11 @@ public:
      //                        QVector2D projectile_pos,
      //                        QVector2D monstre_pos);
 
-    void suivre(QVector2D *posmonstre)  ;
+    void suivre(QVector2D *posmonstre);
 
     int revendre();
 
-    void paint (QPainter * painter);
+    void paint(QPainter *painter);
     Projectile* Shoot(Monstre *monstre, long elapsed);
 };
 

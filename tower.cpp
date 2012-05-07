@@ -6,51 +6,53 @@
 
 Tower::Tower(int x,int y,float cadence,float portee,int prixbase,float damage,int type,float tailleprojectile,QColor canon,QColor base,int lh)
 {
-    this->x=x;
-    this->y=y;
-    this->cadence=cadence;
-    this->portee=portee;
-    this->level=1;
-    this->prixbase=prixbase;
-    this->damage=damage;
-    this->type=type;
-    this->canon=canon;
-    this->tailleprojectile=tailleprojectile;
-    this->canon=canon;
-    this->base=base;
-    this->lh=lh;
-    center.setX((qreal)(x+lh/2));
-    center.setY((qreal)(y+lh/2));
+    m_x=x;
+    m_y=y;
+    m_cadence=cadence;
+    m_portee=portee;
+    m_level=1;
+    m_prixbase=prixbase;
+    m_damage=damage;
+    m_type=type;
+    m_canon=canon;
+    m_tailleprojectile=tailleprojectile;
+    m_canon=canon;
+    m_base=base;
+    m_lh=lh;
+    m_rotation=0;
+    m_center.setX(x+lh/2);
+    m_center.setY(y+lh/2);
 }
 int Tower::revendre()
 {
-    return (this->level/10)*prixbase+prixbase;
+    return (this->m_level/10)*m_prixbase+m_prixbase;
 }
 void Tower::suivre(QVector2D *posmonstre)
 {
 
-    int angle=acos(QVector2D::dotProduct(*posmonstre,center));
-    angle=angle+sqrt(posmonstre->lengthSquared()*center.lengthSquared());
-    rotation=angle;
+    int angle=acos(QVector2D::dotProduct(*posmonstre,m_center));
+    angle=angle+sqrt(posmonstre->lengthSquared()*m_center.lengthSquared());
+    m_rotation=angle;
 }
-void Tower::paint (QPainter * painter)
+void Tower::paint(QPainter *painter)
 {
+   // painter->drawLine(10,10,100,199);
     painter->setPen(QPen(Qt::NoPen));
-    painter->setBrush(base);
-    painter->drawEllipse(x,y,lh,lh);
-    painter->setBrush(canon);
-    painter->drawRect(x+lh/2,y+lh/2,lh/10,lh);
-    painter->rotate(rotation);
+    painter->setBrush(m_base);
+    painter->drawEllipse(m_x,m_y,m_lh,m_lh);
+    painter->setBrush(m_canon);
+   painter->drawRect(m_x+m_lh/2,m_y+m_lh/2,m_lh/10,m_lh);
+    //painter->rotate(rotation);
 }
 Projectile* Tower::Shoot(Monstre *monstre, long elapsed)
 {
-    if (elapsed - derniertire < cadence) return 0;
-    QVector2D tcenter(center.x(), center.y());
+    if (elapsed - m_derniertire < m_cadence) return 0;
+    QVector2D tcenter(m_center.x(), m_center.y());
     QVector2D target(monstre->monstre.x(),monstre->monstre.y());
-    if (target.isNull() || (this->center - target).length() > this->portee)
+    if (target.isNull() || (this->m_center - target).length() > this->m_portee)
         return 0;
-    derniertire = elapsed;
-    Projectile*projectile = new Projectile(tcenter, target,tailleprojectile,10,1,damage*level,base,elapsed);
+    m_derniertire = elapsed;
+    Projectile*projectile = new Projectile(tcenter, target,m_tailleprojectile,10,1,m_damage*m_level,m_base,elapsed);
     projectile->monstre = monstre;
     return projectile;
 }

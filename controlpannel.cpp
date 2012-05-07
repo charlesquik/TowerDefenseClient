@@ -19,7 +19,8 @@ void ControlPannel::paintEvent(QPaintEvent *event)
     painter.begin(this);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(QPen(Qt::black,2));
-    painter.drawRect(ecranpannel.width()-100,0,100,ecranpannel.height());
+    painter.drawRect(ecranpannel.width()-100,10,100,ecranpannel.height());
+    painter.drawText(ecranpannel.width()-90,20,QString::number(elapsed),sizeof(elapsed));
     painter.end();
 
 }

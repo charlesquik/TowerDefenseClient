@@ -10,6 +10,7 @@ public:
     explicit ControlPannel(QRect ecran,QWidget *parent = 0);
     
 signals:
+
 protected:
     void paintEvent(QPaintEvent *event);
 public slots:

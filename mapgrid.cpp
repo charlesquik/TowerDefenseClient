@@ -6,15 +6,16 @@ MapGrid::MapGrid(QRect ecran,gestionnaire *gest,QWidget *parent) :
     QWidget(parent), gest(gest)
 {
     elapsed=0;
-    setFixedSize((ecran.width()-50)/2,ecran.height());
+    setFixedSize((ecran.width()-(ecran.width()/10)),ecran.height());
     setAutoFillBackground(false);
-    mapx=(ecran.width()-100)/12;
+    mapx=(ecran.width()-(ecran.width()/10))/12;
     mapy=(ecran.height()/12);
+
     for(int i=0;i<24;i++)
     {
-        for(int j=0;j<12;j++)
+        for(int j=0;j<24;j++)
         {
-             if(i<=12 && j<=12)
+             if(i<=12 && j<=24)
              {
                 grido[i][j]=true;
              }
@@ -46,7 +47,7 @@ void MapGrid::paintEvent(QPaintEvent *event)
     painter.begin(this);
     painter.setRenderHint(QPainter::Antialiasing);
     gest->paint(&painter,event,elapsed);
-    painter.end();
+   // painter.end();
 }
 void MapGrid::mousePressEvent(QMouseEvent *event)
 {
@@ -65,5 +66,6 @@ void MapGrid::mouseDoubleClickEvent(QMouseEvent *e)
     if(grido[x][y]==true)
     {
         emit AjoutTour(1);
+        grido[x][y]==false;
     }
 }

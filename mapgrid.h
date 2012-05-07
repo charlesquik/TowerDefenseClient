@@ -29,7 +29,7 @@ private:
     long elapsed;
     int newtower;
     int mapx,mapy;
-    int grido[24][12];
+    int grido[24][24];
 };
 
 #endif // MAPGRID_H
