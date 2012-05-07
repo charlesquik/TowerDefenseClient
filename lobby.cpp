@@ -12,6 +12,7 @@ Lobby::Lobby(QWidget *parent) :
     ui(new Ui::Lobby)
 {
     ui->setupUi(this);
+    m_socket = new QTcpSocket();
 }
 
 Lobby::~Lobby()
@@ -29,43 +30,48 @@ void Lobby::on_btn_retour_clicked()
 
 void Lobby::on_btn_Creer_clicked()
 {
-    if (m_socket.state() != QAbstractSocket::ConnectedState)
+    //vérifie si le socket est connecter avec un serveur
+    if (m_socket->state() != QAbstractSocket::ConnectedState)
     {
-        if (connectionServeur())
-        {
-            newpartie *dmainmenu=new newpartie(m_socket);
-            dmainmenu->show();
-            this->close();
-        }
+        //connecte le socket au serveur
+        connectionServeur();
+    }
+
+    //afficher la page de création de partie lorsque connecter
+    if (m_socket->state() == QAbstractSocket::ConnectedState)
+    {
+        newpartie *dmainmenu = new newpartie(m_socket, ui->txt_Joueur->text(), ui->txt_Partie->text());
+        dmainmenu->show();
+        this->close();
     }
 }
 
 void Lobby::on_btn_rafraichir_clicked()
 {
-    if (m_socket.state() != QAbstractSocket::ConnectedState)
+    //vérifie si le socket est connecter avec un serveur
+    if (m_socket->state() != QAbstractSocket::ConnectedState)
     {
-        if (connectionServeur())
-        {
-            m_socket.write("2");
-        }
+        //connecte le socket au serveur
+        connectionServeur();
+    }
+    //éffectu la recherche des parite lorsque connecté
+    if (m_socket->state() == QAbstractSocket::ConnectedState)
+    {
+        //le code "2" demande des parties au serveur
+        m_socket->write("2");
     }
 }
 
-bool Lobby::connectionServeur()
+void Lobby::connectionServeur()
 {
-    bool connecter = false;
-    m_socket.connectToHost(QHostAddress::LocalHost, 87878);
-    m_socket.waitForConnected(10000);
-    if (m_socket.state() == QAbstractSocket::ConnectedState)
+    m_socket->connectToHost(QHostAddress::LocalHost, 87878);
+    m_socket->waitForConnected(10000);
+    if (m_socket->state() == QAbstractSocket::ConnectedState)
     {
-        connecter = true;
-        QMessageBox msg(QMessageBox::Information,"Connection","La connection au serveur à été effectuer avec succès", QMessageBox::Ok);
-        msg.show();
+        QMessageBox::information(this, "Connection",QString::fromUtf8("La connection au serveur c'est effectuer avec succès"),QMessageBox::Ok);
     }
     else
     {
-        QMessageBox msg(QMessageBox::Critical, "Connection", "La connection au serveur à échouée", QMessageBox::Ok);
-        msg.show();
+        QMessageBox::critical(this, "Connection", QString::fromUtf8("La connection au serveur à échoué"),QMessageBox::Ok);
     }
-    return connecter;
 }

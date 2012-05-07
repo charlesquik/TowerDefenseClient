@@ -13,7 +13,7 @@ class newpartie : public QWidget
     Q_OBJECT
     
 public:
-    explicit newpartie(QTcpSocket socket, QWidget *parent = 0);
+    explicit newpartie(QTcpSocket *socket, QString nomJoueur, QString nomPartie, QWidget *parent = 0);
     ~newpartie();
     void reset();
     QPalette p;
@@ -24,7 +24,10 @@ public:
     
 private:
     Ui::newpartie *ui;
-    QTcpSocket m_socket;
+    QTcpSocket *m_socket;
+    QString m_nomJoueur;
+    QString m_nomPartie;
+
 protected:
     void mousePressEvent(QMouseEvent *e);
 private slots:

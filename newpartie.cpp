@@ -4,11 +4,14 @@
 #include <QMouseEvent>
 #include "towerdefence.h"
 
-newpartie::newpartie(QTcpSocket socket,QWidget *parent) :
+newpartie::newpartie(QTcpSocket *socket, QString nomJoueur, QString nomPartie, QWidget *parent):
     QWidget(parent),
     ui(new Ui::newpartie)
 {
-    //m_socket = socket;
+    m_socket = new QTcpSocket(socket);
+    m_nomJoueur = nomJoueur;
+    m_nomPartie = nomPartie;
+
     ui->setupUi(this);
     ui->frame->setAutoFillBackground(true);
     ui->frame_2->setAutoFillBackground(true);
@@ -95,7 +98,7 @@ void newpartie::on_btnok_clicked()
             vie=20;
     }
 
-    //m_socket.write("1");
+    m_socket->write("1");
 
     TowerDefence *lobby=new TowerDefence(lamap,vie,argent);
     lobby->showFullScreen();

@@ -20,11 +20,11 @@ private slots:
     void on_btn_retour_clicked();
     void on_btn_Creer_clicked();
     void on_btn_rafraichir_clicked();
-    bool connectionServeur();
+    void connectionServeur();
 
 private:
     Ui::Lobby *ui;
-    QTcpSocket m_socket;
+    QTcpSocket *m_socket;
 };
 
 #endif // LOBBY_H
