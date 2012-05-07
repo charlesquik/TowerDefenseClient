@@ -58,7 +58,20 @@ void Lobby::on_btn_rafraichir_clicked()
     if (m_socket->state() == QAbstractSocket::ConnectedState)
     {
         //le code "2" demande des parties au serveur
-        m_socket->write("2");
+        m_socket->write(QString("2").toAscii());
+        if (m_socket->waitForReadyRead(7000))
+        {
+            QByteArray bParam = m_socket->read(m_socket->bytesAvailable());
+            QStringList parties = QString(bParam).split("#");
+            foreach (QString partie, parties)
+            {
+                ui->listPartie->addItem(partie);
+            }
+        }
+        else
+        {
+            QMessageBox::critical(this, "Recherche des parties", QString::fromUtf8("Echec de la recherche des parties, le serveur ne répond pas"),QMessageBox::Ok);
+        }
     }
 }
 
