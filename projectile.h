@@ -13,7 +13,7 @@ class Projectile
 {
 public:
     explicit Projectile(QVector2D source, QVector2D cible,float taille, float vitesse,int type, float degat,QColor couleur,long temps);
-    void paint(QPainter * painter, const QStyleOptionGraphicsItem * option);
+    void paint(QPainter * painter);
     void avancer(long elapsed);
     Monstre *monstre;
     QVector2D source, cible, pos, direction;

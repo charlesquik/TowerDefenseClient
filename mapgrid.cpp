@@ -58,7 +58,7 @@ void MapGrid::mousePressEvent(QMouseEvent *event)
         emit mousepress(x,y,valide);
     }
 }
-void MapGrid::dropEvent(QDropEvent *e)
+void MapGrid::mouseDoubleClickEvent(QMouseEvent *e)
 {
     int x=e->x()/mapx;
     int y=e->y()/mapy;

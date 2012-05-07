@@ -8,19 +8,19 @@ Projectile::Projectile(QVector2D source, QVector2D cible,float taille, float vit
     this->vitesse=vitesse;
     this->type=type;
     this->degat=degat;
-    //this->couleur=couleur;
+    this->couleur=couleur;
     this->direction = cible - source;
     this->direction.normalize();
     this->cibletoucher = false;
     this->temps=temps;
 
 }
-void Projectile::paint ( QPainter * painter, const QStyleOptionGraphicsItem * option)
+void Projectile::paint ( QPainter * painter)
 {
     if (!cibletoucher)
     {
     painter->setPen(QPen(Qt::NoPen));
-    //painter->setBrush(couleur);
+    painter->setBrush(couleur);
     painter->drawEllipse(this->pos.x(), this->pos.y(), taille, taille);
     }
 }
