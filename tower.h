@@ -40,7 +40,7 @@ public:
 
     int revendre();
 
-    void paint (QPainter * painter, const QStyleOptionGraphicsItem * option);
+    void paint (QPainter * painter);
     Projectile* Shoot(Monstre *monstre, long elapsed);
 };
 

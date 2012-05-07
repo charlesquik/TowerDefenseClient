@@ -4,14 +4,16 @@
 #include <QObject>
 #include "gestionnaire.h"
 #include "tower.h"
+#include <QMouseEvent>
 
 
 class MapGrid : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MapGrid(gestionnaire gest,QWidget *parent = 0);
+    explicit MapGrid(QRect ecran,gestionnaire *gest,QWidget *parent);
     void mousePressEvent(QMouseEvent *event);
+    void mouseDoubleClickEvent(QMouseEvent *e);
 public slots:
     void animate();
 
