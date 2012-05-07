@@ -5,7 +5,6 @@
 #include <QDialog>
 #include <QPainter>
 
-
 MainMenu::MainMenu(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainMenu)
@@ -72,10 +71,9 @@ void MainMenu::keyPressEvent(QKeyEvent *event)
             {
                 case 2:
                 {
-
-                Lobby *lobby=new Lobby();
-                lobby->showFullScreen();
-                this->close();
+                    Lobby *lobby=new Lobby();
+                    lobby->showFullScreen();
+                    this->close();
                 }
                 break;
                 case 6:
