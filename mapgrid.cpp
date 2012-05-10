@@ -2,7 +2,7 @@
 #include <QtGui>
 #include "gestionnaire.h"
 
-MapGrid::MapGrid(QRect ecran,gestionnaire *gest,QWidget *parent) :
+MapGrid::MapGrid(QRect ecran,char gridc[576][3],gestionnaire *gest,QWidget *parent) :
     QWidget(parent), gesti(gest)
 {
     elapsed=0;
@@ -11,6 +11,7 @@ MapGrid::MapGrid(QRect ecran,gestionnaire *gest,QWidget *parent) :
     this->showFullScreen();
     setAutoFillBackground(false);
     m_ecran=ecran;
+    m_gridc=gridc;
     phaseini=true;
    // mapx=(ecran.width()-(ecran.width()/10))/24;
     mapx=(int)(ecran.width()/24);
@@ -31,9 +32,13 @@ MapGrid::MapGrid(QRect ecran,gestionnaire *gest,QWidget *parent) :
              }
         }
     }
-    for(int i=0;i<24;i++)
+    char g;
+    char f;
+    for(int i=0;i<strlen(m_gridc);i++)
     {
-        grido[i][11]=0;
+           f=*m_gridc[i,0] ;
+           g=*m_gridc[i,1] ;
+           grido[(int)f][(int)g]=0;
     }
 }
 
