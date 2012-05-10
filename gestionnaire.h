@@ -9,16 +9,21 @@
 class gestionnaire
 {
 public:
-    gestionnaire(QPixmap map);
+    gestionnaire(QImage map);
     void paint(QPainter *painter, QPaintEvent *event,long elapsed);
+        QList<Tower*> ListeTower;
+        QList<Monstre*> ListeMonstre;
 private:
     int money;
    // int MapX, MapY;
-    QList<Monstre*> ListeMonstre;
-    QList<Tower*> ListeTower;
+ //   QList<Monstre*> ListeMonstre;
+   // QList<Tower*> ListeTower;
     QList<Projectile*> ListeProjectile;
     QBrush background;
     Tower *t;
+
+//public slots:
+  //  void ajouttour(int type,int x,int y,QRect ecran);
 
 };
 

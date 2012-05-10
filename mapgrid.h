@@ -5,6 +5,7 @@
 #include "gestionnaire.h"
 #include "tower.h"
 #include <QMouseEvent>
+#include <QtGui>
 
 
 class MapGrid : public QWidget
@@ -14,6 +15,7 @@ public:
     explicit MapGrid(QRect ecran,gestionnaire *gest,QWidget *parent);
     void mousePressEvent(QMouseEvent *event);
     void mouseDoubleClickEvent(QMouseEvent *e);
+    void batirmap();
 public slots:
     void animate();
 
@@ -21,13 +23,16 @@ public slots:
 protected:
     void paintEvent(QPaintEvent *event);
 signals:
-    void AjoutTour(int newt);
+   // void AjoutTour(int,int,int,QRect);
     void updatelabel();
     void mousepress(int x,int y,bool valide);
 private:
-    gestionnaire *gest;
+    gestionnaire *gesti;
     long elapsed;
     int newtower;
+    //QPainter painter;
+    bool phaseini;
+    QRect m_ecran;
     int mapx,mapy;
     int grido[24][24];
 };

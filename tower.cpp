@@ -49,7 +49,7 @@ Projectile* Tower::Shoot(Monstre *monstre, long elapsed)
     if (elapsed - m_derniertire < m_cadence) return 0;
     QVector2D tcenter(m_center.x(), m_center.y());
     QVector2D target(monstre->monstre.x(),monstre->monstre.y());
-    if (target.isNull() || (this->m_center - target).length() > this->m_portee)
+    if (target.isNull() || (this->m_center - target).length() > 1000)//this->m_portee)
         return 0;
     m_derniertire = elapsed;
     Projectile*projectile = new Projectile(tcenter, target,m_tailleprojectile,10,1,m_damage*m_level,m_base,elapsed);

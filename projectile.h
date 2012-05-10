@@ -22,10 +22,6 @@ public:
     float taille,vitesse,degat;
     int type;
     QColor couleur;
-
-signals:
-    
-public slots:
     
 };
 

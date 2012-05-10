@@ -34,7 +34,7 @@ newpartie::newpartie(QTcpSocket *socket, QString nomJoueur, QString nomPartie, Q
     vie=20;
     argent=200;
     difficulte=1;
-    lamap="map1";
+    lamap="image/map.txt";
     p.setColor(QPalette::Foreground,Qt::blue);
     reset();
 }
@@ -99,25 +99,25 @@ void newpartie::on_btnok_clicked()
         if(vie==0)
             vie=20;
     }
-    QString strTrame(QString("1") + "#" + m_nomJoueur + "#" + m_nomPartie + "#" + QString::number(argent) + "#" + QString::number(vie) + "#" + lamap);
-    m_socket->write(strTrame.toAscii());
-    if (m_socket->waitForReadyRead(5000))
-    {
-        if (m_socket->read(m_socket->bytesAvailable()) == "#")
-        {
-            QMessageBox::information(this, QString::fromUtf8("Création d'une nouvelle partie"), QString::fromUtf8("La nouvelle partie a été créé avec succès"));
-        }
-        else
-        {
-            QMessageBox::information(this, QString::fromUtf8("Création d'une nouvelle partie"), QString::fromUtf8("Impossible de créer la nouvelle partie"));
-        }
-    }
-    else
-    {
-        QMessageBox::information(this, QString::fromUtf8("Création d'une nouvelle partie"), QString::fromUtf8("Impossible de créer la nouvelle partie"));
-    }
+//    QString strTrame(QString("1") + "#" + m_nomJoueur + "#" + m_nomPartie + "#" + QString::number(argent) + "#" + QString::number(vie) + "#" + lamap);
+//    m_socket->write(strTrame.toAscii());
+//    if (m_socket->waitForReadyRead(5000))
+//    {
+//        if (m_socket->read(m_socket->bytesAvailable()) == "#")
+//        {
+//            QMessageBox::information(this, QString::fromUtf8("Création d'une nouvelle partie"), QString::fromUtf8("La nouvelle partie a été créé avec succès"));
+//        }
+//        else
+//        {
+//            QMessageBox::information(this, QString::fromUtf8("Création d'une nouvelle partie"), QString::fromUtf8("Impossible de créer la nouvelle partie"));
+//        }
+//    }
+//    else
+//    {
+//        QMessageBox::information(this, QString::fromUtf8("Création d'une nouvelle partie"), QString::fromUtf8("Impossible de créer la nouvelle partie"));
+//    }
 
-    //TowerDefence *lobby=new TowerDefence(lamap,vie,argent);
-    //lobby->showFullScreen();
-    //this->close();
+    TowerDefence *lobby=new TowerDefence(lamap,vie,argent);
+    lobby->showFullScreen();
+    this->close();
 }

@@ -21,6 +21,7 @@ public:
     explicit TowerDefence(QString carte, int vie, int credit);
     ~TowerDefence();
     void abandonner();
+    QImage construiremap(QString map,QRect ecran);
     
 private:
     Ui::TowerDefence *ui;
