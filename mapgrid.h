@@ -12,7 +12,7 @@ class MapGrid : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MapGrid(QRect ecran,char gridc[576][3],gestionnaire *gest,QWidget *parent);
+    explicit MapGrid(QRect ecran,char* gridc,gestionnaire *gest,QWidget *parent);
     void mousePressEvent(QMouseEvent *event);
     void mouseDoubleClickEvent(QMouseEvent *e);
     void batirmap();
@@ -33,7 +33,7 @@ private:
     //QPainter painter;
     bool phaseini;
     QRect m_ecran;
-    char m_gridc[576][3];
+    char *m_gridc;
     int mapx,mapy;
     int grido[24][24];
 };

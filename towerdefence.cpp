@@ -15,12 +15,17 @@
 TowerDefence::TowerDefence(QString carte, int vie, int credit):QMainWindow(),
     ui(new Ui::TowerDefence)
 {
+
     ui->setupUi(this);
+    gridc=new char*[576];
+    for(int i=0;i<576;i++)
+        gridc[i]=new char[3];
     QRect ecran=QApplication::desktop()->rect();
     this->setFixedSize(ecran.width(),ecran.height());      
     QImage map=construiremap(carte,ecran);
     gest=new gestionnaire(map);
-    mavue=new MapGrid(ecran,gridc,gest,this);
+
+    mavue=new MapGrid(ecran,*gridc,gest,this);
     moncontrole=new ControlPannel(ecran,this);
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),moncontrole,SLOT(animate()));
@@ -105,10 +110,12 @@ QImage TowerDefence::construiremap(QString map,QRect ecran)
                     }
                     p=new QImage(p->scaled(mapx,mapy));
                     if(a[0]=='n' || a[0]=='s' ||a[0]=='e' ||a[0]=='o' ||a[0]=='w' ||a[0]=='x' ||a[0]=='y' ||a[0]=='z' )
+                    {
                     gridc[z][1]=i;
                     gridc[z][2]=j;
                     gridc[z][3]=a[0];
                     z++;
+                    }
                     for(int f=0;f<mapx;f++)
                     {
                         for(int k=0;k<mapy;k++)

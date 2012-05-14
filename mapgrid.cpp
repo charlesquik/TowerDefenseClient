@@ -2,7 +2,7 @@
 #include <QtGui>
 #include "gestionnaire.h"
 
-MapGrid::MapGrid(QRect ecran,char gridc[576][3],gestionnaire *gest,QWidget *parent) :
+MapGrid::MapGrid(QRect ecran,char* gridc,gestionnaire *gest,QWidget *parent) :
     QWidget(parent), gesti(gest)
 {
     elapsed=0;
@@ -36,8 +36,8 @@ MapGrid::MapGrid(QRect ecran,char gridc[576][3],gestionnaire *gest,QWidget *pare
     char f;
     for(int i=0;i<strlen(m_gridc);i++)
     {
-           f=*m_gridc[i,0] ;
-           g=*m_gridc[i,1] ;
+           f=m_gridc[i,0] ;
+           g=m_gridc[i,1] ;
            grido[(int)f][(int)g]=0;
     }
 }
@@ -67,13 +67,13 @@ void MapGrid::paintEvent(QPaintEvent *event)
 }
 void MapGrid::mousePressEvent(QMouseEvent *event)
 {
-//    int x=event->x()/mapx;
-//    int y=event->y()/mapy;
-//    if(grido[x][y])
-//    {
-//        bool valide=grido[x][y];
-//        emit mousepress(x,y,valide);
-//    }
+    int x=event->x()/mapx;
+    int y=event->y()/mapy;
+    if(grido[x][y])
+    {
+        int valide=grido[x][y];
+       // emit mousepress(x,y,valide);
+    }
 }
 void MapGrid::mouseDoubleClickEvent(QMouseEvent *e)
 {
