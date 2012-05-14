@@ -30,6 +30,7 @@ private:
     ControlPannel *moncontrole;
     QTimer *timer;
     QList<QPoint> chemin;
+    QStringList test;
 
 private slots:
    //void paintEvent(QPaintEvent *paint);

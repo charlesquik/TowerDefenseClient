@@ -112,11 +112,35 @@ QImage TowerDefence::construiremap(QString map,QRect ecran)
                     p=new QImage(p->scaled(mapx,mapy));
                     if(a[0]=='n' || a[0]=='s' ||a[0]=='e' ||a[0]=='o' ||a[0]=='w' ||a[0]=='x' ||a[0]=='y' ||a[0]=='z' )
                     {
+
+                    int index = 0;
+                    if (chemin.count() - 1 >= index)
+                    {
+                            while (j>=chemin.at(index).x())
+                            {
+                                index++;
+                            }
+                    }
+
                     QPoint im(j,i);
-                    chemin.append(im);
+                    if (a[0] == 'y' || a[0] == 'n')
+                    {
+                        index--;
+                        if (test.count() -1>=index && index-1>=0)
+                        {
+                            while (test.at(index-1) == "y" || test.at(index-1) == "n")
+                            {
+                                index --;
+                            }
+                        }
+                    }
+
+                    test.insert(index,a.left(1));
+                    chemin.insert(index,im);
 
                     //chemin.at(z)[2]=a[0];
                   //  z++;
+
                     }
                     for(int f=0;f<mapx;f++)
                     {

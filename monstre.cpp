@@ -17,16 +17,18 @@ Monstre::Monstre(QVector2D monstre,float vitesse,float vie,int type,float taille
     {
         this->chemin->append(new QPoint(chemin->at(i).x()*(int)(QApplication::desktop()->width()/24),chemin->at(i).y()*(int)(QApplication::desktop()->height()/24)));
     }
-    int last=0;
+//    int last=0;
 
-    for(int i=0;i<chemin->length();i++)
+    for(int i=0;i<this->chemin->length();i++)
     {
-        if(chemin->at(i).x()>=last)
-        {
-            last=chemin->at(i).x();
-            chemin->move(i,chemin->length()-1);
-            i=0;
-        }
+        this->chemin->at(i)->setY(this->chemin->at(i)->y() + 20);
+        this->chemin->at(i)->setX(this->chemin->at(i)->x() + 40);
+//        if(chemin->at(i).x()>last)
+//        {
+//            last=chemin->at(i).x();
+//            chemin->move(i,chemin->length()-1);
+//            i--;
+//        }
        // qSort(chemin->at(0),chemin->at(chemin->size()));
 
 
@@ -56,7 +58,7 @@ void Monstre::avancer(long elapsed)
         nextchemin = QVector2D(*chemin->at(etape+1));
         Monstrearriver = nextchemin-monstre;
     }
-    monstre= monstre+ Monstrearriver/Monstrearriver.length() *10;
+    monstre= monstre+ Monstrearriver/Monstrearriver.length() * 2;
 
 
 }

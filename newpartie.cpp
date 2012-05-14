@@ -99,6 +99,8 @@ void newpartie::on_btnok_clicked()
         if(vie==0)
             vie=20;
     }
+
+
 //    QString strTrame(QString("1") + "#" + m_nomJoueur + "#" + m_nomPartie + "#" + QString::number(argent) + "#" + QString::number(vie) + "#" + lamap);
 //    m_socket->write(strTrame.toAscii());
 //    if (m_socket->waitForReadyRead(5000))
@@ -106,6 +108,7 @@ void newpartie::on_btnok_clicked()
 //        if (m_socket->read(m_socket->bytesAvailable()) == "#")
 //        {
 //            QMessageBox::information(this, QString::fromUtf8("Création d'une nouvelle partie"), QString::fromUtf8("La nouvelle partie a été créé avec succès"));
+
 //        }
 //        else
 //        {
@@ -114,9 +117,8 @@ void newpartie::on_btnok_clicked()
 //    }
 //    else
 //    {
-//        QMessageBox::information(this, QString::fromUtf8("Création d'une nouvelle partie"), QString::fromUtf8("Impossible de créer la nouvelle partie"));
+//        QMessageBox::information(this, QString::fromUtf8("Création d'une nouvelle partie"), QString::fromUtf8("Impossible de se connecter au serveur"));
 //    }
-
     TowerDefence *lobby=new TowerDefence(lamap,vie,argent);
     lobby->showFullScreen();
     this->close();
