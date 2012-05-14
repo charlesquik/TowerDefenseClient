@@ -9,7 +9,7 @@
 class gestionnaire
 {
 public:
-    gestionnaire(QImage map);
+    gestionnaire(QImage map,QList<QPoint> *chemin);
     void paint(QPainter *painter, QPaintEvent *event,long elapsed);
         QList<Tower*> ListeTower;
         QList<Monstre*> ListeMonstre;
@@ -21,7 +21,7 @@ private:
     QList<Projectile*> ListeProjectile;
     QBrush background;
     Tower *t;
-
+    char *m_chemin;
 //public slots:
   //  void ajouttour(int type,int x,int y,QRect ecran);
 

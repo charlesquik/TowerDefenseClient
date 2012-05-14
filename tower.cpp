@@ -22,17 +22,23 @@ Tower::Tower(int x,int y,float cadence,float portee,int prixbase,float damage,in
     m_rotation=0;
     m_center.setX(x+lh/2);
     m_center.setY(y+lh/2);
+    m_direction.setX(m_center.x());
+    m_direction.setY(m_center.y()+lh/2);
 }
 int Tower::revendre()
 {
     return (this->m_level/10)*m_prixbase+m_prixbase;
 }
-void Tower::suivre(QVector2D *posmonstre)
+void Tower::suivre(QVector2D posmonstre)
 {
+    QVector2D tmm=posmonstre-m_center;
 
-    int angle=acos(QVector2D::dotProduct(*posmonstre,m_center));
-    angle=angle+sqrt(posmonstre->lengthSquared()*m_center.lengthSquared());
-    m_rotation=angle;
+    tmm=tmm/sqrt(tmm.lengthSquared());
+    tmm=tmm*m_lh/2;
+    //int angle=acos(QVector2D::dotProduct(m_direction,tmm)/(sqrt(m_direction.lengthSquared())*sqrt(tmm.lengthSquared())));
+    //m_rotation=angle;
+    m_direction.setX(tmm.x()+m_center.x());
+    m_direction.setY(tmm.y()+m_center.y());
 }
 void Tower::paint(QPainter *painter)
 {
@@ -41,18 +47,21 @@ void Tower::paint(QPainter *painter)
     painter->setBrush(m_base);
     painter->drawEllipse(m_x,m_y,m_lh,m_lh);
     painter->setBrush(m_canon);
-   painter->drawRect(m_x+m_lh/2,m_y+m_lh/2,m_lh/10,m_lh);
-    //painter->rotate(rotation);
+    painter->setPen(QPen(QBrush(Qt::black),5));
+    painter->drawLine(m_x+m_lh/2,m_y+m_lh/2,m_direction.x(),m_direction.y());
+    //painter->drawPath();
+   //painter->drawRect(m_x+m_lh/2,m_y+m_lh/2,m_lh/10,m_lh);
+  // painter->rotate(m_rotation);
 }
 Projectile* Tower::Shoot(Monstre *monstre, long elapsed)
 {
     if (elapsed - m_derniertire < m_cadence) return 0;
     QVector2D tcenter(m_center.x(), m_center.y());
     QVector2D target(monstre->monstre.x(),monstre->monstre.y());
-    if (target.isNull() || (this->m_center - target).length() > 1000)//this->m_portee)
+    if (target.isNull() || (this->m_center - target).length() > 1000)
         return 0;
     m_derniertire = elapsed;
-    Projectile*projectile = new Projectile(tcenter, target,m_tailleprojectile,10,1,m_damage*m_level,m_base,elapsed);
+    Projectile*projectile = new Projectile(tcenter, target,m_tailleprojectile,1,1,m_damage*m_level,m_base,elapsed);
     projectile->monstre = monstre;
     return projectile;
 }

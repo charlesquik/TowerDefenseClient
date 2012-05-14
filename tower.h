@@ -28,6 +28,7 @@ public:
     int m_rotation;
     long m_derniertire;
     int m_level;
+    QVector2D m_direction;
 
   //  QVector2D GetInterSect(  QVector2D source,
     //                         QVector2D destination,
@@ -36,7 +37,7 @@ public:
      //                        QVector2D projectile_pos,
      //                        QVector2D monstre_pos);
 
-    void suivre(QVector2D *posmonstre);
+    void suivre(QVector2D posmonstre);
 
     int revendre();
 

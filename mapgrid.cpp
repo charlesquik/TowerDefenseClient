@@ -2,7 +2,7 @@
 #include <QtGui>
 #include "gestionnaire.h"
 
-MapGrid::MapGrid(QRect ecran,char* gridc,gestionnaire *gest,QWidget *parent) :
+MapGrid::MapGrid(QRect ecran,QList<QPoint> *chemin,gestionnaire *gest,QWidget *parent) :
     QWidget(parent), gesti(gest)
 {
     elapsed=0;
@@ -11,7 +11,7 @@ MapGrid::MapGrid(QRect ecran,char* gridc,gestionnaire *gest,QWidget *parent) :
     this->showFullScreen();
     setAutoFillBackground(false);
     m_ecran=ecran;
-    m_gridc=gridc;
+    m_chemin=chemin;
     phaseini=true;
    // mapx=(ecran.width()-(ecran.width()/10))/24;
     mapx=(int)(ecran.width()/24);
@@ -32,13 +32,14 @@ MapGrid::MapGrid(QRect ecran,char* gridc,gestionnaire *gest,QWidget *parent) :
              }
         }
     }
-    char g;
-    char f;
-    for(int i=0;i<strlen(m_gridc);i++)
+
+    for(int i=0;i<24;i++)
     {
-           f=m_gridc[i,0] ;
-           g=m_gridc[i,1] ;
-           grido[(int)f][(int)g]=0;
+           grido[i][24]=0;
+    }
+    for(int i=0;i<m_chemin->size();i++)
+    {
+           grido[m_chemin->at(i).x()][m_chemin->at(i).y()]=0;
     }
 }
 
@@ -71,9 +72,17 @@ void MapGrid::mousePressEvent(QMouseEvent *event)
     int y=event->y()/mapy;
     if(grido[x][y])
     {
-        int valide=grido[x][y];
+    if(event->button()==Qt::RightButton)
+    {
+        Monstre *m;
+        QVector2D me(event->x(),event->y());
+        m=new Monstre(me,0.10,100,1,20,Qt::green,elapsed,m_chemin);
+        gesti->ListeMonstre.append(m);
+       // int valide=grido[x][y];
        // emit mousepress(x,y,valide);
     }
+    }
+
 }
 void MapGrid::mouseDoubleClickEvent(QMouseEvent *e)
 {
@@ -82,15 +91,15 @@ void MapGrid::mouseDoubleClickEvent(QMouseEvent *e)
     if(grido[x][y]==1)
     {
         Tower *t;
-        Monstre *m;
-        QVector2D me(100,100);
+        //Monstre *m;
+       // QVector2D me(100,100);
        // m=new Monstre(me,10,100,1,20,Qt::green);
         //  t=new Tower(e->x() - e->x() % mapx + mapx/2,e->y() - e->y() % mapy + mapy/2,20,20,50,10,1,10,Qt::black,Qt::blue,40);
-         t=new Tower(x*mapx+mapx/4,y*mapy+mapy/4,20,20,50,10,1,10,Qt::black,Qt::blue,mapx/2);
+         t=new Tower(x*mapx+mapx/4,y*mapy+mapy/4,1000,250,50,10,1,10,Qt::black,Qt::blue,mapx/2);
         //emit AjoutTour(1,e->x(),e->y(),m_ecran);
         gesti->ListeTower.append(t);
-     //   gesti->ListeMonstre.append(m);
-        grido[x][y]==false;
+      //  gesti->ListeMonstre.append(m);
+        grido[x][y]=0;
     }
 }
 void MapGrid::batirmap()

@@ -11,21 +11,18 @@
 #include "controlpannel.h"
 #include <QRgb>
 #include <QImage>
+#include <QList>
 
 TowerDefence::TowerDefence(QString carte, int vie, int credit):QMainWindow(),
     ui(new Ui::TowerDefence)
 {
 
     ui->setupUi(this);
-    gridc=new char*[576];
-    for(int i=0;i<576;i++)
-        gridc[i]=new char[3];
     QRect ecran=QApplication::desktop()->rect();
-    this->setFixedSize(ecran.width(),ecran.height());      
+    this->setFixedSize(ecran.width(),ecran.height());
     QImage map=construiremap(carte,ecran);
-    gest=new gestionnaire(map);
-
-    mavue=new MapGrid(ecran,*gridc,gest,this);
+    gest=new gestionnaire(map,&chemin);
+    mavue=new MapGrid(ecran,&chemin,gest,this);
     moncontrole=new ControlPannel(ecran,this);
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),moncontrole,SLOT(animate()));
@@ -106,15 +103,20 @@ QImage TowerDefence::construiremap(QString map,QRect ecran)
                     case '2':
                         p=new QImage("image/Cabase.jpg");
                         break;
+                    default:
+                        p=new QImage("image/herbe.jpg");
+                        break;
+
 
                     }
                     p=new QImage(p->scaled(mapx,mapy));
                     if(a[0]=='n' || a[0]=='s' ||a[0]=='e' ||a[0]=='o' ||a[0]=='w' ||a[0]=='x' ||a[0]=='y' ||a[0]=='z' )
                     {
-                    gridc[z][1]=i;
-                    gridc[z][2]=j;
-                    gridc[z][3]=a[0];
-                    z++;
+                    QPoint im(j,i);
+                    chemin.append(im);
+
+                    //chemin.at(z)[2]=a[0];
+                  //  z++;
                     }
                     for(int f=0;f<mapx;f++)
                     {

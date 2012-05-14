@@ -29,7 +29,7 @@ private:
     MapGrid *mavue;
     ControlPannel *moncontrole;
     QTimer *timer;
-    char **gridc;
+    QList<QPoint> chemin;
 
 private slots:
    //void paintEvent(QPaintEvent *paint);

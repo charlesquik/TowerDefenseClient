@@ -4,15 +4,12 @@
 #include <QPixmap>
 #include <QRgb>
 
-gestionnaire::gestionnaire(QImage map)
+gestionnaire::gestionnaire(QImage map,QList<QPoint> *chemin)
 {
    // MapX=(ecran.width()-100)/12;
    // MapY=(ecran.height()/12;
     //QColor a(50,50,50);
-
-
-
-
+     //m_chemin=chemin;
  //     map.setPixel(100,100,a.rgb());
   //  QPixmap b(map);
     //background = QBrush(b);
@@ -28,7 +25,7 @@ void gestionnaire::paint(QPainter *painter, QPaintEvent *event,long elapsed)
      painter->save();
     for(int i=0;i<ListeMonstre.size();i++)
     {
-        ListeMonstre.at(i)->avancer(elapsed,1);
+        ListeMonstre.at(i)->avancer(elapsed);
         ListeMonstre.at(i)->paint(painter);
 
     }
@@ -42,24 +39,25 @@ void gestionnaire::paint(QPainter *painter, QPaintEvent *event,long elapsed)
         ListeTower.at(i)->paint(painter);
         for(int j=0;j<ListeMonstre.size();j++)
         {
-            if((ListeTower.at(i)->m_center - ListeMonstre.at(j)->monstre).length()<1000)//ListeTower.at(i)->m_portee)
+            if((ListeTower.at(i)->m_center - ListeMonstre.at(j)->monstre).length()<ListeTower.at(i)->m_portee)
             {
                 Projectile *p=ListeTower.at(i)->Shoot(ListeMonstre.at(j),elapsed);
+                 ListeTower.at(i)->suivre(ListeMonstre.at(j)->monstre);
                 if(p!=NULL)
                     ListeProjectile.append(p);
-                ListeTower.at(i)->suivre(&ListeMonstre.at(j)->monstre);
+                ListeTower.at(i)->suivre(ListeMonstre.at(j)->monstre);
             }
         }
         if(ListeMonstre.isEmpty()==false)
         {
-           ListeTower.at(i)->suivre(&ListeMonstre.first()->monstre);
+          // ListeTower.at(i)->suivre(ListeMonstre.first()->monstre);
         }
 
     }
-    for(int i=0;ListeProjectile.size();i++)
+    for(int i=0;i<ListeProjectile.size();i++)
     {
         Projectile* b = ListeProjectile.at(i);
-        if(ListeProjectile.at(i)->cibletoucher)
+        if(ListeProjectile.at(i)->cibletoucher==true)
         {
             if(ListeMonstre.contains(b->monstre))
             {
@@ -68,7 +66,7 @@ void gestionnaire::paint(QPainter *painter, QPaintEvent *event,long elapsed)
             delete ListeProjectile.at(i);
             ListeProjectile.removeAt(i);
 
-        }
+       }
     }
     for(int i=0;i<ListeMonstre.size();i++)
     {
