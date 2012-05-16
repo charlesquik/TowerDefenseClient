@@ -35,11 +35,7 @@ TowerDefence::~TowerDefence()
 {
     delete ui;
 }
-//void TowerDefence::paintEvent(QPaintEvent *paint)
-//{
- //   QPainter painter(this);
- //   painter.setRenderHint(QPainter::Antialiasing);
-//}
+
 void TowerDefence::abandonner()
 {
 
