@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <Q3SortedList>
+#include <gestionnaire.h>
 Monstre::Monstre(QVector2D monstre,float vitesse,float vie,int type,float taille,QColor carapace,long temps,QList<QPoint> *chemin)
 {
     this->monstre=monstre;
@@ -11,6 +12,7 @@ Monstre::Monstre(QVector2D monstre,float vitesse,float vie,int type,float taille
     this->taille=taille;
     this->carapace=carapace;
     this->temps=temps;
+    this->isDelete=false;
     this->etape=0;
     this->chemin = new QList<QPoint*>();
     for(int i=0;i<chemin->length();i++)
@@ -55,14 +57,25 @@ void Monstre::avancer(long elapsed)
     if(Monstrelongueur.lengthSquared()>=longueur.lengthSquared())
     {
         etape++;
+        if(etape<chemin->size()-1)
+        {
         nextchemin = QVector2D(*chemin->at(etape+1));
         Monstrearriver = nextchemin-monstre;
+        }
+        else
+        {
+            isDelete=true;
+        }
     }
-    monstre= monstre+ Monstrearriver/Monstrearriver.length() * 2;
+        monstre= monstre+ Monstrearriver/Monstrearriver.length() * 2;
 
 
 }
 void Monstre::hit(float damage)
 {
     vie-=damage;
+}
+void Monstre::Delete()
+{
+    delete this;
 }

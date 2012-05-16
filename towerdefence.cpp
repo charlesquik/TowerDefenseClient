@@ -110,7 +110,7 @@ QImage TowerDefence::construiremap(QString map,QRect ecran)
 
                     }
                     p=new QImage(p->scaled(mapx,mapy));
-                    if(a[0]=='n' || a[0]=='s' ||a[0]=='e' ||a[0]=='o' ||a[0]=='w' ||a[0]=='x' ||a[0]=='y' ||a[0]=='z' )
+                    if(a[0]=='n' || a[0]=='s' ||a[0]=='e' ||a[0]=='o' ||a[0]=='w' ||a[0]=='x' ||a[0]=='y' ||a[0]=='z'||a[0]=='1'||a[0]=='2' )
                     {
 
                     int index = 0;

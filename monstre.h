@@ -19,7 +19,9 @@ public:
     int vie;
      int type;
     float taille;
+    void Delete();
     QColor carapace;
+    bool isDelete;
     void hit(float damage);
     long temps;
     int etape;

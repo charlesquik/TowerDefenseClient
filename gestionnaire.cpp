@@ -76,7 +76,14 @@ void gestionnaire::paint(QPainter *painter, QPaintEvent *event,long elapsed)
             delete ListeMonstre.at(i);
             ListeMonstre.removeAt(i);
         }
+        else if(ListeMonstre.at(i)->isDelete==true)
+        {
+            //vie--;
+            ListeMonstre.at(i)->Delete();
+            ListeMonstre.removeAt(i);
+        }
     }
+
     painter->restore();
 }
 //void gestionnaire::ajouttour(int type, int x, int y, QRect ecran)
