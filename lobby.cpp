@@ -30,20 +30,20 @@ void Lobby::on_btn_retour_clicked()
 
 void Lobby::on_btn_Creer_clicked()
 {
-    //vérifie si le socket est connecter avec un serveur
-    //if (m_socket->state() != QAbstractSocket::ConnectedState)
-    //{
-        //connecte le socket au serveur
-     //   connectionServeur();
-    //}
+//    vérifie si le socket est connecter avec un serveur
+    if (m_socket->state() != QAbstractSocket::ConnectedState)
+    {
+//        connecte le socket au serveur
+        connectionServeur();
+    }
 
-    //afficher la page de création de partie lorsque connecter
-   // if (m_socket->state() == QAbstractSocket::ConnectedState)
-   // {
+//    afficher la page de création de partie lorsque connecter
+    if (m_socket->state() == QAbstractSocket::ConnectedState)
+    {
         newpartie *dmainmenu = new newpartie(m_socket, ui->txt_Joueur->text(), ui->txt_Partie->text());
         dmainmenu->show();
         this->close();
-  //  }
+    }
 }
 
 void Lobby::on_btn_rafraichir_clicked()
@@ -77,7 +77,7 @@ void Lobby::on_btn_rafraichir_clicked()
 
 void Lobby::connectionServeur()
 {
-    m_socket->connectToHost(QHostAddress::LocalHost, 87878);
+    m_socket->connectToHost("172.16.14.10", 87878);
     m_socket->waitForConnected(10000);
     if (m_socket->state() == QAbstractSocket::ConnectedState)
     {

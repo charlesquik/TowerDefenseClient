@@ -14,13 +14,16 @@ class AttenteJoueur : public QWidget
     Q_OBJECT
     
 public:
-    explicit AttenteJoueur(int socketDescriptor);
+    explicit AttenteJoueur(int socketDescriptor, QString nomMap, int vie, int argent);
     ~AttenteJoueur();
     
 private:
     Ui::AttenteJoueur *ui;
     bool m_joueurConnecte;
     QTcpSocket *m_socket;
+    QString m_nomMap;
+    int m_vie;
+    int m_argent;
 
 private slots:
     void slLectureSocket();

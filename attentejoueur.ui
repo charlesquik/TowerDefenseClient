@@ -67,7 +67,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Nom du joueur :</string>
+    <string/>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -88,7 +88,7 @@
     </font>
    </property>
    <property name="text">
-    <string>La partie commence dans:</string>
+    <string/>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -130,7 +130,7 @@
     </font>
    </property>
    <property name="text">
-    <string>secondes</string>
+    <string/>
    </property>
   </widget>
  </widget>

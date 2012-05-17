@@ -1,23 +1,22 @@
 #include "attentejoueur.h"
 #include "ui_attentejoueur.h"
+#include "towerdefence.h"
 
-AttenteJoueur::AttenteJoueur(int socketDescriptor) :
+AttenteJoueur::AttenteJoueur(int socketDescriptor, QString nomMap, int vie, int argent) :
     ui(new Ui::AttenteJoueur)
 {
     ui->setupUi(this);
     ui->setupUi(this);
-
-    ui->lblInfo2->setVisible(false);
-    ui->lblinfo3->setVisible(false);
-    ui->label->setVisible(false);
-    ui->lblTemps->setVisible(false);
-    ui->lblNomJoueur->setVisible(false);
 
     m_joueurConnecte = false;
 
     m_socket = new QTcpSocket(this);
     m_socket->setSocketDescriptor(socketDescriptor);
     connect(m_socket,SIGNAL(readyRead()),this, SLOT(slLectureSocket()));
+
+    m_nomMap = nomMap;
+    m_vie = vie;
+    m_argent = argent;
 }
 
 void AttenteJoueur::slLectureSocket()
@@ -32,12 +31,16 @@ void AttenteJoueur::slLectureSocket()
     {
         m_joueurConnecte = true;
         ui->lblInfo->setText("Un deuxième joueur est maintenant connecté");
-        ui->lblInfo2->setVisible(true);
-        ui->lblinfo3->setVisible(true);
-        ui->label->setVisible(true);
-        ui->lblTemps->setVisible(true);
-        ui->lblNomJoueur->setVisible(true);
+        ui->lblInfo2->setText("La partie commence dans:");
+        ui->lblinfo3->setText("secondes");
+        ui->label->setText("Nom du joueur:");
         ui->lblNomJoueur->setText(Param.at(1));
+    }
+    if (Param.at(1).toInt() <= 0)
+    {
+        TowerDefence *lobby=new TowerDefence(m_nomMap,m_vie,m_argent);
+        lobby->showFullScreen();
+        this->close();
     }
 }
 
