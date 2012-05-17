@@ -17,8 +17,10 @@ Tower::Tower(int x,int y,float cadence,float portee,int prixbase,float damage,in
     m_canon=canon;
     m_tailleprojectile=tailleprojectile;
     m_canon=canon;
+    havetarget=false;
     m_base=base;
     m_lh=lh;
+    m_derniertire=0;
     m_rotation=0;
     m_center.setX(x+lh/2);
     m_center.setY(y+lh/2);
@@ -58,10 +60,10 @@ Projectile* Tower::Shoot(Monstre *monstre, long elapsed)
     if (elapsed - m_derniertire < m_cadence) return 0;
     QVector2D tcenter(m_center.x(), m_center.y());
     QVector2D target(monstre->monstre.x(),monstre->monstre.y());
-    if (target.isNull() || (this->m_center - target).length() > 1000)
+    if (target.isNull() || (this->m_center - target).length() > this->m_portee)
         return 0;
     m_derniertire = elapsed;
-    Projectile*projectile = new Projectile(tcenter, target,m_tailleprojectile,1,1,m_damage*m_level,m_base,elapsed);
+    Projectile *projectile = new Projectile(tcenter, target,m_tailleprojectile,2,1,m_damage*m_level,Qt::black,elapsed);
     projectile->monstre = monstre;
     return projectile;
 }

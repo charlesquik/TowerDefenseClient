@@ -5,25 +5,31 @@
 #include "tower.h"
 #include <QList>
 #include <QPixmap>
+#include <QObject>
 
-class gestionnaire
+class gestionnaire: public QWidget
 {
+    Q_OBJECT
 public:
     gestionnaire(QImage map,QList<QPoint> *chemin);
     void paint(QPainter *painter, QPaintEvent *event,long elapsed);
         QList<Tower*> ListeTower;
         QList<Monstre*> ListeMonstre;
 private:
-    int money;
    // int MapX, MapY;
  //   QList<Monstre*> ListeMonstre;
    // QList<Tower*> ListeTower;
     QList<Projectile*> ListeProjectile;
     QBrush background;
     Tower *t;
+
     char *m_chemin;
 //public slots:
-  //  void ajouttour(int type,int x,int y,QRect ecran);
+  //  void ajouttour(int type,int x,int y,QRect ecran)
+signals:
+    void updatelabelmoney(int);
+    void updatelabelvie(int);
+
 
 };
 

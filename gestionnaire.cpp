@@ -36,23 +36,27 @@ void gestionnaire::paint(QPainter *painter, QPaintEvent *event,long elapsed)
     }
     for(int i=0;i<ListeTower.size();i++)
     {
+        int j=0;
         ListeTower.at(i)->paint(painter);
-        for(int j=0;j<ListeMonstre.size();j++)
+        while(ListeTower.at(i)->havetarget==false && j<ListeMonstre.size())
         {
             if((ListeTower.at(i)->m_center - ListeMonstre.at(j)->monstre).length()<ListeTower.at(i)->m_portee)
             {
                 Projectile *p=ListeTower.at(i)->Shoot(ListeMonstre.at(j),elapsed);
-                 ListeTower.at(i)->suivre(ListeMonstre.at(j)->monstre);
-                if(p!=NULL)
-                    ListeProjectile.append(p);
+                ListeTower.at(i)->havetarget=true;
                 ListeTower.at(i)->suivre(ListeMonstre.at(j)->monstre);
+                if(p!=NULL)
+                {
+                    ListeProjectile.append(p);
+                }
             }
-        }
-        if(ListeMonstre.isEmpty()==false)
-        {
-          // ListeTower.at(i)->suivre(ListeMonstre.first()->monstre);
-        }
+            j++;
 
+        }
+    }
+    for(int i=0;i<ListeTower.size();i++)
+    {
+        ListeTower.at(i)->havetarget=false;
     }
     for(int i=0;i<ListeProjectile.size();i++)
     {
@@ -72,13 +76,13 @@ void gestionnaire::paint(QPainter *painter, QPaintEvent *event,long elapsed)
     {
         if(ListeMonstre.at(i)->vie<0)
         {
-            money+=10;
+            emit updatelabelmoney(10);
             delete ListeMonstre.at(i);
             ListeMonstre.removeAt(i);
         }
         else if(ListeMonstre.at(i)->isDelete==true)
         {
-            //vie--;
+            emit updatelabelvie(-1);
             ListeMonstre.at(i)->Delete();
             ListeMonstre.removeAt(i);
         }

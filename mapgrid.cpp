@@ -1,6 +1,7 @@
 #include "mapgrid.h"
 #include <QtGui>
 #include "gestionnaire.h"
+#include "towerdefence.h"
 
 MapGrid::MapGrid(QRect ecran,QList<QPoint> *chemin,gestionnaire *gest,QWidget *parent) :
     QWidget(parent), gesti(gest)
@@ -76,7 +77,7 @@ void MapGrid::mousePressEvent(QMouseEvent *event)
     {
         Monstre *m;
         QVector2D me(event->x(),event->y());
-        m=new Monstre(me,0.10,100,1,20,Qt::green,elapsed,m_chemin);
+        m=new Monstre(me,0.10,20,1,20,Qt::green,elapsed,m_chemin);
         gesti->ListeMonstre.append(m);
        // int valide=grido[x][y];
        // emit mousepress(x,y,valide);
@@ -90,19 +91,15 @@ void MapGrid::mouseDoubleClickEvent(QMouseEvent *e)
     int y=(int)(e->y()/mapy);
     if(grido[x][y]==1)
     {
+
         Tower *t;
-        //Monstre *m;
-       // QVector2D me(100,100);
-       // m=new Monstre(me,10,100,1,20,Qt::green);
-        //  t=new Tower(e->x() - e->x() % mapx + mapx/2,e->y() - e->y() % mapy + mapy/2,20,20,50,10,1,10,Qt::black,Qt::blue,40);
-         t=new Tower(x*mapx+mapx/4,y*mapy+mapy/4,1000,250,50,10,1,10,Qt::black,Qt::blue,mapx/2);
-        //emit AjoutTour(1,e->x(),e->y(),m_ecran);
-        gesti->ListeTower.append(t);
-      //  gesti->ListeMonstre.append(m);
-        grido[x][y]=0;
+        t=new Tower(x*mapx+mapx/4,y*mapy+mapy/4,1000,250,50,10,1,10,Qt::black,Qt::blue,mapx/2);
+        //if(TowerDefence::money>=t->m_prixbase)
+       // {
+            gesti->ListeTower.append(t);
+            emit updatelabelmoney(t->m_prixbase*-1);
+            grido[x][y]=0;
+      //  }
     }
 }
-void MapGrid::batirmap()
-{
 
-}

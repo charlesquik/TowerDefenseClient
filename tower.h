@@ -25,6 +25,7 @@ public:
     QColor    m_base;
     int   m_lh;
     QVector2D m_center;
+    bool havetarget;
     int m_rotation;
     long m_derniertire;
     int m_level;

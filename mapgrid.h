@@ -24,7 +24,7 @@ protected:
     void paintEvent(QPaintEvent *event);
 signals:
    // void AjoutTour(int,int,int,QRect);
-    void updatelabel();
+    void updatelabelmoney(int);
     void mousepress(int x,int y,bool valide);
 private:
     gestionnaire *gesti;

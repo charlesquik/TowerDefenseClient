@@ -17,17 +17,22 @@ TowerDefence::TowerDefence(QString carte, int vie, int credit):QMainWindow(),
     ui(new Ui::TowerDefence)
 {
 
+    this->vie=vie;
+    this->money=credit;
     ui->setupUi(this);
     QRect ecran=QApplication::desktop()->rect();
     this->setFixedSize(ecran.width(),ecran.height());
     QImage map=construiremap(carte,ecran);
     gest=new gestionnaire(map,&chemin);
+
     mavue=new MapGrid(ecran,&chemin,gest,this);
-    moncontrole=new ControlPannel(ecran,this);
+    moncontrole=new ControlPannel(ecran,this->vie,this->money,this);
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),moncontrole,SLOT(animate()));
-    connect(timer, SIGNAL(timeout()), mavue, SLOT(animate()));
-    //connect(mavue, SIGNAL(updatelabel()), this, SLOT(SetLabel()));
+    connect(timer, SIGNAL(timeout()), mavue, SLOT(animate()));  
+    connect(mavue, SIGNAL(updatelabelmoney(int)), this, SLOT(SetLabelmoney(int)));
+    connect(gest, SIGNAL(updatelabelvie(int)), this, SLOT(SetLabelvie(int)));
+    connect(gest, SIGNAL(updatelabelmoney(int)), this, SLOT(SetLabelmoney(int)));
     timer->start(30);
 }
 
@@ -36,9 +41,15 @@ TowerDefence::~TowerDefence()
     delete ui;
 }
 
-void TowerDefence::abandonner()
+void TowerDefence::SetLabelmoney(int money)
 {
-
+    this->money+=money;
+    this->moncontrole->money=this->money;
+}
+void TowerDefence::SetLabelvie(int vie)
+{
+    this->vie+=vie;
+    this->moncontrole->vie=this->vie;
 }
 QImage TowerDefence::construiremap(QString map,QRect ecran)
 {

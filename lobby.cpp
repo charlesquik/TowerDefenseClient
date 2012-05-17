@@ -31,19 +31,19 @@ void Lobby::on_btn_retour_clicked()
 void Lobby::on_btn_Creer_clicked()
 {
     //vérifie si le socket est connecter avec un serveur
-    if (m_socket->state() != QAbstractSocket::ConnectedState)
-    {
+    //if (m_socket->state() != QAbstractSocket::ConnectedState)
+    //{
         //connecte le socket au serveur
-        connectionServeur();
-    }
+     //   connectionServeur();
+    //}
 
     //afficher la page de création de partie lorsque connecter
-    if (m_socket->state() == QAbstractSocket::ConnectedState)
-    {
+   // if (m_socket->state() == QAbstractSocket::ConnectedState)
+   // {
         newpartie *dmainmenu = new newpartie(m_socket, ui->txt_Joueur->text(), ui->txt_Partie->text());
         dmainmenu->show();
         this->close();
-    }
+  //  }
 }
 
 void Lobby::on_btn_rafraichir_clicked()

@@ -2,12 +2,16 @@
 #define CONTROLPANNEL_H
 
 #include <QWidget>
+#include <QFrame>
 
 class ControlPannel : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ControlPannel(QRect ecran,QWidget *parent = 0);
+    explicit ControlPannel(QRect ecran,int vie,int money,QWidget *parent = 0);
+    int money;
+    int vie;
+    QFrame *q;
     
 signals:
 
@@ -18,6 +22,8 @@ public slots:
 private:
     long elapsed;
     QRect ecranpannel;
+    QImage tour1;
+    QImage tour2;
 };
 
 #endif // CONTROLPANNEL_H

@@ -24,6 +24,8 @@ public:
     QImage construiremap(QString map,QRect ecran);
     
 private:
+    int money;
+    int vie;
     Ui::TowerDefence *ui;
     gestionnaire *gest;
     MapGrid *mavue;
@@ -33,7 +35,8 @@ private:
     QStringList test;
 
 private slots:
-   //void paintEvent(QPaintEvent *paint);
+   void SetLabelmoney(int);
+   void SetLabelvie(int);
 };
 
 #endif // TOWERDEFENCE_H
