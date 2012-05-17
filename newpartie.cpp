@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 #include "towerdefence.h"
 #include <QMessageBox>
+#include "attentejoueur.h"
 
 newpartie::newpartie(QTcpSocket *socket, QString nomJoueur, QString nomPartie, QWidget *parent):
     QWidget(parent),
@@ -101,25 +102,27 @@ void newpartie::on_btnok_clicked()
     }
 
 
-//    QString strTrame(QString("1") + "#" + m_nomJoueur + "#" + m_nomPartie + "#" + QString::number(argent) + "#" + QString::number(vie) + "#" + lamap);
-//    m_socket->write(strTrame.toAscii());
-//    if (m_socket->waitForReadyRead(5000))
-//    {
-//        if (m_socket->read(m_socket->bytesAvailable()) == "#")
-//        {
-//            QMessageBox::information(this, QString::fromUtf8("Création d'une nouvelle partie"), QString::fromUtf8("La nouvelle partie a été créé avec succès"));
+    QString strTrame(QString("1") + "#" + m_nomJoueur + "#" + m_nomPartie + "#" + QString::number(argent) + "#" + QString::number(vie) + "#" + lamap);
+    m_socket->write(strTrame.toAscii());
+    if (m_socket->waitForReadyRead(5000))
+    {
+        if (m_socket->read(m_socket->bytesAvailable()) == "#")
+        {
+            QMessageBox::information(this, QString::fromUtf8("Création d'une nouvelle partie"), QString::fromUtf8("La nouvelle partie a été créé avec succès"));
 
-//        }
-//        else
-//        {
-//            QMessageBox::information(this, QString::fromUtf8("Création d'une nouvelle partie"), QString::fromUtf8("Impossible de créer la nouvelle partie"));
-//        }
-//    }
-//    else
-//    {
-//        QMessageBox::information(this, QString::fromUtf8("Création d'une nouvelle partie"), QString::fromUtf8("Impossible de se connecter au serveur"));
-//    }
-    TowerDefence *lobby=new TowerDefence(lamap,vie,argent);
-    lobby->showFullScreen();
-    this->close();
+
+//            TowerDefence *lobby=new TowerDefence(lamap,vie,argent);
+//            lobby->showFullScreen();
+//            this->close();
+        }
+        else
+        {
+            QMessageBox::information(this, QString::fromUtf8("Création d'une nouvelle partie"), QString::fromUtf8("Impossible de créer la nouvelle partie"));
+        }
+    }
+    else
+    {
+        QMessageBox::information(this, QString::fromUtf8("Création d'une nouvelle partie"), QString::fromUtf8("Impossible de se connecter au serveur"));
+    }
+
 }
