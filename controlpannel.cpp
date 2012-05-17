@@ -24,7 +24,7 @@ ControlPannel::ControlPannel(QRect ecran,int vie,int money,QWidget *parent) :
 void ControlPannel::animate()
 {
     elapsed = (elapsed + qobject_cast<QTimer*>(sender())->interval());
-    repaint();
+    update();
 }
 void ControlPannel::paintEvent(QPaintEvent *event)
 {

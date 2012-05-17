@@ -23,14 +23,13 @@ TowerDefence::TowerDefence(QString carte, int vie, int credit):QMainWindow(),
     QRect ecran=QApplication::desktop()->rect();
     this->setFixedSize(ecran.width(),ecran.height());
     QImage map=construiremap(carte,ecran);
-    gest=new gestionnaire(map,&chemin);
-
+    gest=new gestionnaire(map,&chemin,this->vie,this->money);
     mavue=new MapGrid(ecran,&chemin,gest,this);
     moncontrole=new ControlPannel(ecran,this->vie,this->money,this);
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),moncontrole,SLOT(animate()));
     connect(timer, SIGNAL(timeout()), mavue, SLOT(animate()));  
-    connect(mavue, SIGNAL(updatelabelmoney(int)), this, SLOT(SetLabelmoney(int)));
+   // connect(mavue, SIGNAL(updatelabelmoney(int)), this, SLOT(SetLabelmoney(int)));
     connect(gest, SIGNAL(updatelabelvie(int)), this, SLOT(SetLabelvie(int)));
     connect(gest, SIGNAL(updatelabelmoney(int)), this, SLOT(SetLabelmoney(int)));
     timer->start(30);
@@ -43,13 +42,23 @@ TowerDefence::~TowerDefence()
 
 void TowerDefence::SetLabelmoney(int money)
 {
-    this->money+=money;
+    this->money=money;
     this->moncontrole->money=this->money;
 }
 void TowerDefence::SetLabelvie(int vie)
 {
-    this->vie+=vie;
+    this->vie=vie;
     this->moncontrole->vie=this->vie;
+//    if(this->vie<=0)
+//    {
+//        GameOver();
+//    }
+}
+void TowerDefence::GameOver()
+{
+    timer->stop();
+    QMessageBox::critical(0,"Game over", "You lose");
+    //this->close();
 }
 QImage TowerDefence::construiremap(QString map,QRect ecran)
 {

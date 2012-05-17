@@ -20,8 +20,8 @@ class TowerDefence : public QMainWindow
 public:
     explicit TowerDefence(QString carte, int vie, int credit);
     ~TowerDefence();
-    void abandonner();
     QImage construiremap(QString map,QRect ecran);
+    void GameOver();
     
 private:
     int money;
