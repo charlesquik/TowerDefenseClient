@@ -5,7 +5,8 @@
 #include <QRgb>
 #include "mapgrid.h"
 
-gestionnaire::gestionnaire(QImage map,QList<QPoint> *chemin,int vie,int money)
+
+gestionnaire::gestionnaire(QImage map,QList<QPoint> *chemin,int vie,int money,Joueur1 *Adversaire)
 {
    // MapX=(ecran.width()-100)/12;
    // MapY=(ecran.height()/12;
@@ -14,6 +15,7 @@ gestionnaire::gestionnaire(QImage map,QList<QPoint> *chemin,int vie,int money)
  //     map.setPixel(100,100,a.rgb());
   //  QPixmap b(map);
     //background = QBrush(b);
+    m_Adversaire=Adversaire;
       background = QBrush(map);
       this->money=money;
       this->vie=vie;
@@ -53,7 +55,6 @@ void gestionnaire::paint(QPainter *painter, QPaintEvent *event,long elapsed)
                 }
             }
             j++;
-
         }
     }
     for(int i=0;i<ListeTower.size();i++)

@@ -5,6 +5,7 @@
 #include "newpartie.h"
 #include <QtNetwork>
 #include <QMessageBox>
+#include <QModelIndexList>
 
 
 Lobby::Lobby(QWidget *parent) :
@@ -22,7 +23,6 @@ Lobby::~Lobby()
 
 void Lobby::on_btn_retour_clicked()
 {
-
     MainMenu *dmainmenu=new MainMenu();
     dmainmenu->show();
     this->close();
@@ -48,6 +48,7 @@ void Lobby::on_btn_Creer_clicked()
 
 void Lobby::on_btn_rafraichir_clicked()
 {
+    ui->listPartie->clear();
     //vérifie si le socket est connecter avec un serveur
     if (m_socket->state() != QAbstractSocket::ConnectedState)
     {
@@ -58,33 +59,72 @@ void Lobby::on_btn_rafraichir_clicked()
     if (m_socket->state() == QAbstractSocket::ConnectedState)
     {
         //le code "2" demande des parties au serveur
+
         m_socket->write(QString("2").toAscii());
-        if (m_socket->waitForReadyRead(7000))
+        m_socket->waitForBytesWritten(5000);
+        if (m_socket->waitForReadyRead(5000))
         {
             QByteArray bParam = m_socket->read(m_socket->bytesAvailable());
             QStringList parties = QString(bParam).split("#");
             foreach (QString partie, parties)
             {
-                ui->listPartie->addItem(partie);
+                if(partie!="")
+                    ui->listPartie->addItem(partie);
             }
         }
         else
         {
-            QMessageBox::critical(this, "Recherche des parties", QString::fromUtf8("Echec de la recherche des parties, le serveur ne répond pas"),QMessageBox::Ok);
+           // QMessageBox::critical(this, "Recherche des parties", QString::fromUtf8("Echec de la recherche des parties, le serveur ne répond pas"),QMessageBox::Ok);
         }
     }
 }
 
 void Lobby::connectionServeur()
 {
-    m_socket->connectToHost("172.16.14.10", 87878);
+    m_socket->connectToHost("172.16.15.10", 87878);
     m_socket->waitForConnected(10000);
     if (m_socket->state() == QAbstractSocket::ConnectedState)
     {
-        QMessageBox::information(this, "Connection",QString::fromUtf8("La connection au serveur c'est effectuer avec succès"),QMessageBox::Ok);
+      //  QMessageBox::information(this, "Connection",QString::fromUtf8("La connection au serveur c'est effectuer avec succès"),QMessageBox::Ok);
     }
     else
     {
-        QMessageBox::critical(this, "Connection", QString::fromUtf8("La connection au serveur à échoué"),QMessageBox::Ok);
+       // QMessageBox::critical(this, "Connection", QString::fromUtf8("La connection au serveur à échoué"),QMessageBox::Ok);
     }
+}
+
+void Lobby::on_btn_joindre_clicked()
+{
+    QByteArray recept="";
+    if (m_socket->state() == QAbstractSocket::ConnectedState)
+    {
+        QModelIndex a;
+        a=ui->listPartie->currentIndex();
+        int i=a.row();
+        m_socket->write(QString::number(i).toAscii());
+        m_socket->waitForBytesWritten(10000);
+        if(m_socket->waitForReadyRead(10000)==true)
+        {
+            recept=m_socket->read(m_socket->bytesAvailable());
+            QStringList partie=QString(recept).split('.');
+            if(partie.at(0)=="#")
+            {
+
+
+                //newpartie *dmainmenu = new newpartie(m_socket, ui->txt_Joueur->text(), QString::number(ui->listPartie->currentIndex()).toAscii());
+                //dmainmenu->show();
+                //this->close();
+                TowerDefence *nouvgame=new TowerDefence(partie.at(1),partie.at(2).toInt(),partie.at(3).toInt(),2);
+
+                nouvgame->showFullScreen();
+                this->close();
+
+            }
+            else if(partie.at(0)=="@")
+            {
+                QMessageBox::information(this,"Erreur partie pleine","La partie est pleine!");
+            }
+        }
+    }
+
 }

@@ -22,6 +22,8 @@ private slots:
     void on_btn_rafraichir_clicked();
     void connectionServeur();
 
+    void on_btn_joindre_clicked();
+
 private:
     Ui::Lobby *ui;
     QTcpSocket *m_socket;

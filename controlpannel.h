@@ -3,12 +3,14 @@
 
 #include <QWidget>
 #include <QFrame>
+#include "joueur.h"
 
 class ControlPannel : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ControlPannel(QRect ecran,int vie,int money,QWidget *parent = 0);
+
+    explicit ControlPannel(QRect ecran,int vie,int money,int joueur, QWidget *parent = 0);
     int money;
     int vie;
     QFrame *q;

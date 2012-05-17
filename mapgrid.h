@@ -6,13 +6,14 @@
 #include "tower.h"
 #include <QMouseEvent>
 #include <QtGui>
+#include "joueur.h"
 
 
 class MapGrid : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MapGrid(QRect ecran,QList<QPoint> *chemin,gestionnaire *gest,QWidget *parent);
+    explicit MapGrid(QRect ecran,QList<QPoint> *chemin,gestionnaire *gest,Joueur1 *Adversaire,QWidget *parent);
     void mousePressEvent(QMouseEvent *event);
     void mouseDoubleClickEvent(QMouseEvent *e);
     void batirmap();

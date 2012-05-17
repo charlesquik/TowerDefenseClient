@@ -104,7 +104,8 @@ void newpartie::on_btnok_clicked()
 
     QString strTrame(QString("1") + "#" + m_nomJoueur + "#" + m_nomPartie + "#" + QString::number(argent) + "#" + QString::number(vie) + "#" + lamap);
     m_socket->write(strTrame.toAscii());
-    if (m_socket->waitForReadyRead(5000))
+    m_socket->waitForBytesWritten(10000);
+    if (m_socket->waitForReadyRead(7000))
     {
         if (m_socket->read(m_socket->bytesAvailable()) == "#")
         {

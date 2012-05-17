@@ -3,7 +3,7 @@
 #include "gestionnaire.h"
 #include "towerdefence.h"
 
-MapGrid::MapGrid(QRect ecran,QList<QPoint> *chemin,gestionnaire *gest,QWidget *parent) :
+MapGrid::MapGrid(QRect ecran,QList<QPoint> *chemin,gestionnaire *gest,Joueur1 *Adversaire,QWidget *parent) :
     QWidget(parent), gesti(gest)
 {
     elapsed=0;

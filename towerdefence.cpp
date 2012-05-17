@@ -13,19 +13,23 @@
 #include <QImage>
 #include <QList>
 
-TowerDefence::TowerDefence(QString carte, int vie, int credit):QMainWindow(),
+TowerDefence::TowerDefence(QString carte, int vie, int credit,int joueur):QMainWindow(),
     ui(new Ui::TowerDefence)
 {
-
+    this->joueur=joueur;
     this->vie=vie;
     this->money=credit;
     ui->setupUi(this);
+    if(joueur==1)
+        Adversaire=new Joueur1(2);
+    else
+        Adversaire=new Joueur1(1);
     QRect ecran=QApplication::desktop()->rect();
     this->setFixedSize(ecran.width(),ecran.height());
     QImage map=construiremap(carte,ecran);
-    gest=new gestionnaire(map,&chemin,this->vie,this->money);
-    mavue=new MapGrid(ecran,&chemin,gest,this);
-    moncontrole=new ControlPannel(ecran,this->vie,this->money,this);
+    gest=new gestionnaire(map,&chemin,this->vie,this->money,Adversaire);
+    mavue=new MapGrid(ecran,&chemin,gest,Adversaire,this);
+    moncontrole=new ControlPannel(ecran,this->vie,this->money,joueur,this);
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),moncontrole,SLOT(animate()));
     connect(timer, SIGNAL(timeout()), mavue, SLOT(animate()));  

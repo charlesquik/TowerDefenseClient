@@ -7,6 +7,7 @@
 #include <QTimer>
 #include <QPixmap>
 #include "controlpannel.h"
+#include "joueur.h"
 
 
 namespace Ui {
@@ -18,7 +19,7 @@ class TowerDefence : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit TowerDefence(QString carte, int vie, int credit);
+    explicit TowerDefence(QString carte, int vie, int credit,int joueur);
     ~TowerDefence();
     QImage construiremap(QString map,QRect ecran);
     void GameOver();
@@ -26,9 +27,11 @@ public:
 private:
     int money;
     int vie;
+    int joueur;
     Ui::TowerDefence *ui;
     gestionnaire *gest;
     MapGrid *mavue;
+    Joueur1 *Adversaire;
     ControlPannel *moncontrole;
     QTimer *timer;
     QList<QPoint> chemin;
