@@ -23,8 +23,7 @@ public slots:
 protected:
     void paintEvent(QPaintEvent *event);
 signals:
-   // void AjoutTour(int,int,int,QRect);
-    void updatelabelmoney(int);
+    void AjoutTour(int,int,int,QRect);
     void mousepress(int x,int y,bool valide);
 private:
     gestionnaire *gesti;

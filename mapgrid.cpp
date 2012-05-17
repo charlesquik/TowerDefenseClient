@@ -13,11 +13,12 @@ MapGrid::MapGrid(QRect ecran,QList<QPoint> *chemin,gestionnaire *gest,QWidget *p
     setAutoFillBackground(false);
     m_ecran=ecran;
     m_chemin=chemin;
+    newtower=1;
     phaseini=true;
    // mapx=(ecran.width()-(ecran.width()/10))/24;
     mapx=(int)(ecran.width()/24);
     mapy=(int)(ecran.height()/24);
-    //connect(this,SIGNAL(AjoutTour(int,int,int,QRect)),gesti,SLOT(ajouttour(int,int,int,QRect)));
+    connect(this,SIGNAL(AjoutTour(int,int,int,QRect)),gesti,SLOT(ajouttour(int,int,int,QRect)));
 
     for(int i=0;i<24;i++)
     {
@@ -46,17 +47,9 @@ MapGrid::MapGrid(QRect ecran,QList<QPoint> *chemin,gestionnaire *gest,QWidget *p
 
 void MapGrid::animate()
 {
-   // if (gestionnaire->gameresult == 1)
-   // {
-   //     gameOverW();
-  //      return;
-  // else if (gestionnaire->gameresult == 2)
-  //  {
-  //      gameOverL();
-  //      return;
-  //  }
+
     elapsed = (elapsed + qobject_cast<QTimer*>(sender())->interval());
-    repaint();
+    update();
 }
 void MapGrid::paintEvent(QPaintEvent *event)
 {
@@ -91,13 +84,22 @@ void MapGrid::mouseDoubleClickEvent(QMouseEvent *e)
     int y=(int)(e->y()/mapy);
     if(grido[x][y]==1)
     {
+        switch(newtower)
+        {
+        case 1:
+            emit AjoutTour(1,x,y,m_ecran);
+            break;
 
-        Tower *t;
-        t=new Tower(x*mapx+mapx/4,y*mapy+mapy/4,1000,250,50,10,1,10,Qt::black,Qt::blue,mapx/2);
+        case 2:
+            emit AjoutTour(2,x,y,m_ecran);
+            break;
+        }
+        //Tower *t;
+        //t=new Tower(x*mapx+mapx/4,y*mapy+mapy/4,1000,250,50,10,1,10,Qt::black,Qt::blue,mapx/2);
         //if(TowerDefence::money>=t->m_prixbase)
        // {
-            gesti->ListeTower.append(t);
-            emit updatelabelmoney(t->m_prixbase*-1);
+            //gesti->ListeTower.append(t);
+            //emit updatelabelmoney(t->m_prixbase*-1);
             grido[x][y]=0;
       //  }
     }
