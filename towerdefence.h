@@ -8,6 +8,8 @@
 #include <QPixmap>
 #include "controlpannel.h"
 #include "joueur.h"
+#include <QtNetwork/QTcpSocket>
+#include <QRect>
 
 
 namespace Ui {
@@ -19,9 +21,9 @@ class TowerDefence : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit TowerDefence(QString carte, int vie, int credit,int joueur);
+    explicit TowerDefence(QString carte, int vie, int credit,int joueur, int socketdescriptor);
     ~TowerDefence();
-    QImage construiremap(QString map,QRect ecran);
+    //QImage construiremap(QString map,QRect ecran);
     void GameOver();
     
 private:
@@ -34,12 +36,17 @@ private:
     Joueur1 *Adversaire;
     ControlPannel *moncontrole;
     QTimer *timer;
+    QTcpSocket* m_socket;
     QList<QPoint> chemin;
+    QRect ecran;
     QStringList test;
 
 private slots:
    void SetLabelmoney(int);
    void SetLabelvie(int);
+   void Lecture();
+signals:
+   void AjoutTourEnemie(int,int,int,QRect);
 };
 
 #endif // TOWERDEFENCE_H

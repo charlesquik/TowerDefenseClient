@@ -38,7 +38,7 @@ void AttenteJoueur::slLectureSocket()
     }
     if (Param.at(1).toInt() <= 0)
     {
-        TowerDefence *lobby=new TowerDefence(m_nomMap,m_vie,m_argent,1);
+        TowerDefence *lobby=new TowerDefence(m_nomMap,m_vie,m_argent,1,m_socket->socketDescriptor());
         lobby->showFullScreen();
         this->close();
     }

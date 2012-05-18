@@ -14,6 +14,7 @@ public:
     int money;
     int vie;
     QFrame *q;
+    int joueur;
     
 signals:
 

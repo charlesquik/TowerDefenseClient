@@ -14,6 +14,7 @@ ControlPannel::ControlPannel(QRect ecran,int vie,int money,int joueur,QWidget *p
     ecranpannel=ecran;
     this->money=money;
     this->vie=vie;
+    this->joueur=joueur;
     tour1=QImage("image/tourB1.png");
     tour1 = tour1.scaled(this->width()/20,this->height()-this->height()*0.1);
     tour2=QImage("image/tourR1.png");
@@ -21,7 +22,7 @@ ControlPannel::ControlPannel(QRect ecran,int vie,int money,int joueur,QWidget *p
 }
 void ControlPannel::animate()
 {
-    elapsed = (elapsed + qobject_cast<QTimer*>(sender())->interval());
+   // elapsed = (elapsed + qobject_cast<QTimer*>(sender())->interval());
     update();
 }
 void ControlPannel::paintEvent(QPaintEvent *event)
@@ -35,7 +36,7 @@ void ControlPannel::paintEvent(QPaintEvent *event)
     painter.setPen(QPen(Qt::black,2));
     painter.drawImage(this->width()*0.15,this->height()*0.05,tour1);
     painter.drawImage(this->width()*0.15+this->width()/20+this->height()*0.05,this->height()*0.05,tour2);
-    painter.drawText(this->rect().x()+5,this->rect().y()+15,QString::number(elapsed),sizeof(elapsed));
+    painter.drawText(this->rect().x()+5,this->rect().y()+15,"Joueur: "+QString::number(joueur),sizeof(joueur)+sizeof("Joueur: "));
     painter.drawText(this->rect().x()+5,this->rect().y()+25,"vie: "+QString::number(vie),sizeof(vie)+sizeof("vie: "));
     painter.drawText(this->rect().x()+5,this->rect().y()+35,"argent: "+QString::number(money),sizeof(money)+sizeof("argent: "));
     painter.end();

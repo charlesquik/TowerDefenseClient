@@ -11,7 +11,7 @@
 class Monstre
 {
 public:
-    explicit Monstre(QVector2D monstre,float vitesse,float vie,int type,float taille,QColor carapace,long temps,QList<QPoint> *chemin);
+    explicit Monstre(QVector2D monstre,float vitesse,float vie,int type,float taille,QColor carapace,QList<QPoint> *chemin);
     void paint(QPainter * painter);
     void avancer(long elapsed);
    QVector2D monstre;
@@ -23,7 +23,6 @@ public:
     QColor carapace;
     bool isDelete;
     void hit(float damage);
-    long temps;
     int etape;
     QList<QPoint*>* chemin;
     //QVector2D nextchemin;

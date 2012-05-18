@@ -6,6 +6,8 @@
 #include <QtNetwork>
 #include <QMessageBox>
 #include <QModelIndexList>
+#include <QApplication>
+#include <QDesktopWidget>
 
 
 Lobby::Lobby(QWidget *parent) :
@@ -101,7 +103,7 @@ void Lobby::on_btn_joindre_clicked()
         QModelIndex a;
         a=ui->listPartie->currentIndex();
         int i=a.row();
-        m_socket->write(QString::number(i).toAscii());
+        m_socket->write('3' + '#' + QString::number(i).toAscii()+'#'+QString::number(QApplication::desktop()->rect().width()).toAscii()+'#'+QString::number(QApplication::desktop()->rect().height()).toAscii());
         m_socket->waitForBytesWritten(10000);
         if(m_socket->waitForReadyRead(10000)==true)
         {
@@ -114,8 +116,7 @@ void Lobby::on_btn_joindre_clicked()
                 //newpartie *dmainmenu = new newpartie(m_socket, ui->txt_Joueur->text(), QString::number(ui->listPartie->currentIndex()).toAscii());
                 //dmainmenu->show();
                 //this->close();
-                TowerDefence *nouvgame=new TowerDefence(partie.at(1),partie.at(2).toInt(),partie.at(3).toInt(),2);
-
+                TowerDefence *nouvgame=new TowerDefence(partie.at(1),partie.at(2).toInt(),partie.at(3).toInt(),2,m_socket->socketDescriptor());
                 nouvgame->showFullScreen();
                 this->close();
 

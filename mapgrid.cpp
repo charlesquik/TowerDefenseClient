@@ -20,21 +20,40 @@ MapGrid::MapGrid(QRect ecran,QList<QPoint> *chemin,gestionnaire *gest,Joueur1 *A
     mapy=(int)(ecran.height()/24);
     connect(this,SIGNAL(AjoutTour(int,int,int,QRect)),gesti,SLOT(ajouttour(int,int,int,QRect)));
 
-    for(int i=0;i<24;i++)
+    if(Adversaire->numero==2)
     {
-        for(int j=0;j<24;j++)
+        for(int i=0;i<24;i++)
         {
-             if(i<=12 && j<=24)
-             {             
-                grido[i][j]=1;
-             }
-             else
-             {
-                grido[i][j]=0;
-             }
+            for(int j=0;j<24;j++)
+            {
+                 if(i<=12 && j<=24)
+                 {
+                    grido[i][j]=1;
+                 }
+                 else
+                 {
+                    grido[i][j]=0;
+                 }
+            }
         }
     }
-
+    else
+    {
+        for(int i=0;i<24;i++)
+        {
+            for(int j=0;j<24;j++)
+            {
+                 if(i<=12 && j<=24)
+                 {
+                    grido[i][j]=0;
+                 }
+                 else
+                 {
+                    grido[i][j]=1;
+                 }
+            }
+        }
+    }
     for(int i=0;i<24;i++)
     {
            grido[i][24]=0;
@@ -43,6 +62,29 @@ MapGrid::MapGrid(QRect ecran,QList<QPoint> *chemin,gestionnaire *gest,Joueur1 *A
     {
            grido[m_chemin->at(i).x()][m_chemin->at(i).y()]=0;
     }
+//    for(int i=0;i<24;i++)
+//    {
+//        for(int j=0;j<24;j++)
+//        {
+//             if(i<=12 && j<=24)
+//             {
+//                grido[i][j]=1;
+//             }
+//             else
+//             {
+//                grido[i][j]=0;
+//             }
+//        }
+//    }
+
+//    for(int i=0;i<24;i++)
+//    {
+//           grido[i][24]=0;
+//    }
+//    for(int i=0;i<m_chemin->size();i++)
+//    {
+//           grido[m_chemin->at(i).x()][m_chemin->at(i).y()]=0;
+//    }
 }
 
 void MapGrid::animate()
@@ -64,18 +106,18 @@ void MapGrid::mousePressEvent(QMouseEvent *event)
 {
     int x=event->x()/mapx;
     int y=event->y()/mapy;
-    if(grido[x][y])
-    {
-    if(event->button()==Qt::RightButton)
-    {
-        Monstre *m;
-        QVector2D me(event->x(),event->y());
-        m=new Monstre(me,0.10,20,1,20,Qt::green,elapsed,m_chemin);
-        gesti->ListeMonstre.append(m);
-       // int valide=grido[x][y];
-       // emit mousepress(x,y,valide);
-    }
-    }
+//    if(grido[x][y])
+//    {
+//    if(event->button()==Qt::RightButton)
+//    {
+//        Monstre *m;
+//        QVector2D me(event->x(),event->y());
+//        m=new Monstre(me,0.10,20,1,20,Qt::green,m_chemin);
+//        gesti->ListeMonstre.append(m);
+//       // int valide=grido[x][y];
+//       // emit mousepress(x,y,valide);
+//    }
+//    }
 
 }
 void MapGrid::mouseDoubleClickEvent(QMouseEvent *e)
@@ -92,6 +134,7 @@ void MapGrid::mouseDoubleClickEvent(QMouseEvent *e)
 
         case 2:
             emit AjoutTour(2,x,y,m_ecran);
+
             break;
         }
         //Tower *t;
