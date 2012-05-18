@@ -63,11 +63,11 @@ void Lobby::on_btn_rafraichir_clicked()
         //le code "2" demande des parties au serveur
 
         m_socket->write(QString("2").toAscii());
-        m_socket->waitForBytesWritten(5000);
-        if (m_socket->waitForReadyRead(5000))
+        m_socket->waitForBytesWritten(500);
+        if (m_socket->waitForReadyRead(500))
         {
             QByteArray bParam = m_socket->read(m_socket->bytesAvailable());
-            QStringList parties = QString(bParam).split("#");
+            QStringList parties = QString(bParam).split('#');
             foreach (QString partie, parties)
             {
                 if(partie!="")
@@ -83,7 +83,7 @@ void Lobby::on_btn_rafraichir_clicked()
 
 void Lobby::connectionServeur()
 {
-    m_socket->connectToHost("172.16.15.10", 87878);
+    m_socket->connectToHost("172.16.15.10", 12345);
     m_socket->waitForConnected(10000);
     if (m_socket->state() == QAbstractSocket::ConnectedState)
     {
@@ -103,9 +103,9 @@ void Lobby::on_btn_joindre_clicked()
         QModelIndex a;
         a=ui->listPartie->currentIndex();
         int i=a.row();
-        m_socket->write('3' + '#' + QString::number(i).toAscii()+'#'+QString::number(QApplication::desktop()->rect().width()).toAscii()+'#'+QString::number(QApplication::desktop()->rect().height()).toAscii());
-        m_socket->waitForBytesWritten(10000);
-        if(m_socket->waitForReadyRead(10000)==true)
+        m_socket->write(QString("3#").toAscii() +  QString::number(i).toAscii()+'#'+QString::number(QApplication::desktop()->rect().width()).toAscii()+'#'+QString::number(QApplication::desktop()->rect().height()).toAscii());
+        m_socket->waitForBytesWritten(500);
+        if(m_socket->waitForReadyRead(500)==true)
         {
             recept=m_socket->read(m_socket->bytesAvailable());
             QStringList partie=QString(recept).split('.');
@@ -127,5 +127,4 @@ void Lobby::on_btn_joindre_clicked()
             }
         }
     }
-
 }

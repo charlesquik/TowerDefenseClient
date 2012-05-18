@@ -23,20 +23,20 @@ void AttenteJoueur::slLectureSocket()
 {
     QByteArray bChaine = m_socket->readAll();
     QStringList Param = QString(bChaine).split("#");
-    if (Param.at(0).toInt() == 2 && m_joueurConnecte == true)
-    {
-        ui->lblTemps->setText(Param.at(1));
-    }
-    else if (Param.at(0).toInt() == 3 && m_joueurConnecte == false)
-    {
-        m_joueurConnecte = true;
-        ui->lblInfo->setText("Un deuxième joueur est maintenant connecté");
-        ui->lblInfo2->setText("La partie commence dans:");
-        ui->lblinfo3->setText("secondes");
-        ui->label->setText("Nom du joueur:");
-        ui->lblNomJoueur->setText(Param.at(1));
-    }
-    if (Param.at(1).toInt() <= 0)
+//    if (Param.at(0).toInt() == 2 && m_joueurConnecte == true)
+//    {
+//        ui->lblTemps->setText(Param.at(1));
+//    }
+//    else if (Param.at(0).toInt() == 3 && m_joueurConnecte == false)
+//    {
+//        m_joueurConnecte = true;
+//        ui->lblInfo->setText("Un deuxième joueur est maintenant connecté");
+//        ui->lblInfo2->setText("La partie commence dans:");
+//        ui->lblinfo3->setText("secondes");
+//        ui->label->setText("Nom du joueur:");
+//        ui->lblNomJoueur->setText(Param.at(1));
+//    }
+    if (Param.at(0) == "#")
     {
         TowerDefence *lobby=new TowerDefence(m_nomMap,m_vie,m_argent,1,m_socket->socketDescriptor());
         lobby->showFullScreen();

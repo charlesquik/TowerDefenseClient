@@ -106,8 +106,8 @@ void newpartie::on_btnok_clicked()
     QRect ecran=QApplication::desktop()->rect();
     QString strTrame(QString("1") + "#" + m_nomPartie + "#" + QString::number(argent) + "#" + QString::number(vie) + "#" + lamap+"#" + QString::number(ecran.width())+ "#"+QString::number(ecran.height()));
     m_socket->write(strTrame.toAscii());
-    m_socket->waitForBytesWritten(10000);
-    if (m_socket->waitForReadyRead(7000))
+    m_socket->waitForBytesWritten(500);
+    if (m_socket->waitForReadyRead(500))
     {
         if (m_socket->read(m_socket->bytesAvailable()) == "#")
         {
