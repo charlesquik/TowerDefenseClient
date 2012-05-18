@@ -5,6 +5,8 @@
 #include "towerdefence.h"
 #include <QMessageBox>
 #include "attentejoueur.h"
+#include <QApplication>
+#include <QDesktopWidget>
 
 newpartie::newpartie(QTcpSocket *socket, QString nomJoueur, QString nomPartie, QWidget *parent):
     QWidget(parent),
@@ -101,8 +103,8 @@ void newpartie::on_btnok_clicked()
             vie=20;
     }
 
-
-    QString strTrame(QString("1") + "#" + m_nomJoueur + "#" + m_nomPartie + "#" + QString::number(argent) + "#" + QString::number(vie) + "#" + lamap);
+    QRect ecran=QApplication::desktop()->rect();
+    QString strTrame(QString("1") + "#" + m_nomPartie + "#" + QString::number(argent) + "#" + QString::number(vie) + "#" + lamap+"#" + QString::number(ecran.width())+ "#"+QString::number(ecran.height()));
     m_socket->write(strTrame.toAscii());
     m_socket->waitForBytesWritten(10000);
     if (m_socket->waitForReadyRead(7000))

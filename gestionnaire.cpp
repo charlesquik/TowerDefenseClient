@@ -106,6 +106,7 @@ void gestionnaire::paint(QPainter *painter, QPaintEvent *event,long elapsed)
      }
      for(int i=0;i<ListeMonstre.size();i++)
      {
+         //ListeMonstre.at(i)->avancer(painter);
          ListeMonstre.at(i)->paint(painter);
      }
      for(int i=0;i<ListeProjectile.size();i++)
